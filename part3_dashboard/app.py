@@ -420,7 +420,7 @@ def load_artifact(path="leadsmart_champion.joblib"):
 # =========================
 # 3) Load Model Artifact
 # =========================
-artifact = load_artifact()
+artifact = load_artifact(os.path.join(FILE_DIR, "leadsmart_champion.joblib"))
 
 # Unpack artifact
 champion = artifact.get("model")
