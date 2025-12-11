@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Leadsmart — AI Agent Design Specification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #f7f9fb;
+            --card: #ffffff;
+            --accent: #0b6cf1;
+            --accent-light: #eef6ff;
+            --muted: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 6px 18px rgba(11, 108, 241, 0.08);
+            --shadow-heavy: 0 12px 32px rgba(11, 108, 241, 0.12);
+            --box-radius: 12px;
+            --node-width: 420px;
+            --alt-width: 340px;
+            --gap-y: 44px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Inter', 'Segoe UI', Roboto, 'Noto Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: #0f172a;
+            direction: ltr;
+            line-height: 1.6;
+        }
+        
+        /* Page Layout */
+        .landscape-container {
+            width: 1400px;
+            margin: 20px auto;
+            padding: 40px;
+            background: linear-gradient(180deg, #ffffff 0%, #fcfdff 100%);
+            border-radius: 16px;
+            box-shadow: var(--shadow-heavy);
+            box-sizing: border-box;
+        }
+        
+        /* Header */
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--accent-light);
+        }
+        
+        .title-section h1 {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .title-section p {
+            color: var(--muted);
+            font-size: 16px;
+            max-width: 800px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        
+        /* Content Sections */
+        .section {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-content {
+            padding-left: 52px;
+        }
+        
+        /* Objective Cards */
+        .objective-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .objective-card {
+            background: var(--card);
+            border-radius: var(--box-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .objective-card i {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .objective-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+        
+        /* Flowchart Section */
+        .flowchart-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(180deg, #ffffff, #fbfdff);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        
+        .flowchart-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+        
+        .canvas {
+            width: 100%;
+            overflow: auto;
+            padding: 20px 10px;
+        }
+        
+        .col {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--gap-y);
+            padding: 20px 0 40px;
+        }
+        
+        .node {
+            width: var(--node-width);
+            background: var(--card);
+            border-radius: var(--box-radius);
+            padding: 20px 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .node h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #07132b;
+            font-weight: 700;
+        }
+        
+        .node p {
+            margin: 10px 0 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        
+        .connector {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(#cfe1ff, #dfe8ff);
+            border-radius: 2px;
+            margin: 0 auto;
+        }
+        
+        .alts {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .alt {
+            width: var(--alt-width);
+            background: linear-gradient(180deg, #ffffff, #fbfdff);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(8, 23, 56, 0.06);
+            border: 1px solid rgba(11, 108, 241, 0.1);
+            font-size: 14px;
+            text-align: left;
+        }
+        
+        .alt .alt-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .alt ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        
+        .alt li {
+            margin-bottom: 6px;
+        }
+        
+        /* Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: var(--accent);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f0f7ff;
+        }
+        
+        /* User Interaction Grid */
+        .interaction-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .interaction-card {
+            background: var(--card);
+            border-radius: var(--box-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .interaction-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Conversation Flow */
+        .conversation-flow {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .flow-step {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        
+        .flow-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .step-number {
+            background: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        
+        /* Lead Classification */
+        .classification-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .class-card {
+            border-radius: 12px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .class-card.hot {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        
+        .class-card.warm {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .class-card.cold {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+        
+        .class-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .class-card ul {
+            margin-left: 20px;
+        }
+        
+        /* Questions Section */
+        .questions-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 25px 0;
+        }
+        
+        .question-category {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .question-category h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid var(--accent-light);
+            text-align: center;
+            color: var(--muted);
+        }
+        
+        .footer-note {
+            background: var(--accent-light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1440px) {
+            .landscape-container {
+                width: 95%;
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .objective-cards,
+            .interaction-grid,
+            .classification-container,
+            .questions-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .node {
+                width: 380px;
+            }
+            
+            .alt {
+                width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .landscape-container {
+                padding: 20px;
+            }
+            
+            .document-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .objective-cards,
+            .interaction-grid,
+            .classification-container,
+            .questions-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .node {
+                width: 90%;
+            }
+            
+            .alt {
+                width: 100%;
+            }
+            
+            .section-content {
+                padding-left: 0;
+            }
+        }
+        
+        @media print {
+            @page {
+                size: landscape;
+                margin: 20mm;
+            }
+            
+            .landscape-container {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container" role="main">
+        <!-- Document Header -->
+        <header class="document-header">
+            <div class="title-section">
+                <h1>AI Agent Design Specification</h1>
+                <p>Part 5: AI-Powered Voice Agent for Lead Qualification & Conversion</p>
+            </div>
+            <div class="logo">LEADSMART</div>
+        </header>
+        
+        <!-- Section 1: Objective -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-bullseye"></i>
+                <h2>1. Objective</h2>
+            </div>
+            <div class="section-content">
+                <p>The goal is to design an <strong>AI-powered voice agent</strong> capable of:</p>
+                
+                <div class="objective-cards">
+                    <div class="objective-card">
+                        <i class="fas fa-phone-volume"></i>
+                        <h3>Calling leads instantly</h3>
+                        <p>Immediate response to captured leads</p>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Conducting qualification conversations</h3>
+                        <p>Natural dialogue for lead screening</p>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <i class="fas fa-database"></i>
+                        <h3>Extracting structured information</h3>
+                        <p>Organize conversation data automatically</p>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Scoring lead intent</h3>
+                        <p>Automatic classification of lead quality</p>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <i class="fas fa-sync-alt"></i>
+                        <h3>Updating Leadsmart's CRM</h3>
+                        <p>Seamless integration with existing platform</p>
+                    </div>
+                    
+                    <div class="objective-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Reducing sales workload</h3>
+                        <p>Increase lead-to-booking conversion</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 25px;">This feature should integrate seamlessly into the Leadsmart platform and be configurable by business users.</p>
+            </div>
+        </section>
+        
+        <!-- Section 2: System Architecture -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-sitemap"></i>
+                <h2>2. System Architecture</h2>
+            </div>
+            <div class="section-content">
+                <p>The system follows a modular architecture with 6 core components, each with multiple implementation alternatives for flexibility and scalability.</p>
+                
+                <!-- Flowchart Diagram -->
+                <div class="flowchart-section">
+                    <h3 class="flowchart-title">AI Agent System Architecture Flow</h3>
+                    
+                    <div class="canvas" id="canvas">
+                        <div class="col" id="flowcol">
+                            <!-- Nodes will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Monitoring & QA -->
+                <div style="margin-top: 40px;">
+                    <h3 style="color: var(--accent); margin-bottom: 20px; font-size: 20px;">Monitoring, Logging & QA</h3>
+                    <p>Logs include: Full transcript, Audio file, Extracted fields, Errors, Satisfaction score</p>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Role</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Prometheus + Grafana</strong></td>
+                                <td>Metrics monitoring & visualization</td>
+                                <td>Real-time performance tracking</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ELK Stack</strong></td>
+                                <td>Log aggregation & analysis</td>
+                                <td>Debugging & audit trails</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Datadog / New Relic</strong></td>
+                                <td>Full-stack application monitoring</td>
+                                <td>Enterprise-grade observability</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: User Interactions -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                <h2>3. User Interactions</h2>
+            </div>
+            <div class="section-content">
+                <p>Client dashboard additions to configure and monitor AI calling functionality.</p>
+                
+                <div class="interaction-grid">
+                    <div class="interaction-card">
+                        <h4><i class="fas fa-toggle-on"></i> AI Caller Toggle</h4>
+                        <p>"Enable AI Qualification Calls for this campaign" - Global on/off switch with campaign-level granularity.</p>
+                    </div>
+                    
+                    <div class="interaction-card">
+                        <h4><i class="fas fa-sliders-h"></i> AI Call Settings</h4>
+                        <ul>
+                            <li>Allowed call hours (timezone-aware)</li>
+                            <li>Max retries (1-5 attempts)</li>
+                            <li>Preferred agent voice (male/female/neutral)</li>
+                            <li>Language mode (Arabic / English / Auto-detect)</li>
+                            <li>Aggressiveness level (calm / neutral / proactive)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="interaction-card">
+                        <h4><i class="fas fa-history"></i> Lead Timeline View</h4>
+                        <ul>
+                            <li>AI Call Status (Scheduled, In Progress, Completed)</li>
+                            <li>Full conversation transcript</li>
+                            <li>AI-generated summary</li>
+                            <li>Lead Score (0-100 with confidence)</li>
+                            <li>Recommended next step</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Conversation Flow -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-comments"></i>
+                <h2>4. Conversation Flow</h2>
+            </div>
+            <div class="section-content">
+                <div class="conversation-flow">
+                    <div class="flow-step">
+                        <div class="step-number">A</div>
+                        <div class="step-content">
+                            <h5>Call Opening</h5>
+                            <p>"Hello, this is Ava from Leadsmart calling about your request for details on Mivida Gardens..."</p>
+                            <p style="direction: rtl; text-align: right; margin-top: 8px; font-weight: 500; font-family: 'Segoe UI', Tahoma, sans-serif;">
+                                <strong>If Arabic:</strong> "ازيك يا فندم، مع حضرتك آڤا من منصة Leadsmart بخصوص استفسارك عن مشروع ميفيدا جاردنز..."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Confirm Interest</h5>
+                            <p>"Are you still interested in learning about the project?"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Timeline</h5>
+                            <p>"When are you planning to buy?" (Within 3 months, 3–6 months, 6+ months)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Budget</h5>
+                            <p>"What budget range are you comfortable with?"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h5>Unit Type</h5>
+                            <p>Apartment? Villa? Townhouse?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h5>Engagement Level Detection</h5>
+                            <p>Using hesitations, tone, number of clarifications, sentiment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Lead Classification -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-filter"></i>
+                <h2>5. Lead Classification Logic</h2>
+            </div>
+            <div class="section-content">
+                <div class="classification-container">
+                    <div class="class-card hot">
+                        <h4>HOT Lead <i class="fas fa-fire"></i></h4>
+                        <ul>
+                            <li>Budget matches project pricing</li>
+                            <li>Timeline ≤ 3 months</li>
+                            <li>Positive tone & high engagement</li>
+                            <li>Intent score: 80-100</li>
+                            <li>Immediate follow-up required</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="class-card warm">
+                        <h4>WARM Lead <i class="fas fa-temperature-low"></i></h4>
+                        <ul>
+                            <li>Budget unclear or needs discussion</li>
+                            <li>Timeline 3-6 months</li>
+                            <li>Neutral or cautious tone</li>
+                            <li>Intent score: 40-79</li>
+                            <li>Nurturing campaign recommended</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="class-card cold">
+                        <h4>COLD Lead <i class="fas fa-snowflake"></i></h4>
+                        <ul>
+                            <li>"Just looking" or information gathering</li>
+                            <li>Very low budget mismatch</li>
+                            <li>Timeline > 6 months</li>
+                            <li>Negative or disengaged tone</li>
+                            <li>Intent score: 0-39</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: Questions -->
+        <section class="section">
+            <div class="section-title">
+                <i class="fas fa-question-circle"></i>
+                <h2>6. Stakeholder Questions</h2>
+            </div>
+            <div class="section-content">
+                <div class="questions-container">
+                    <div class="question-category">
+                        <h4><i class="fas fa-briefcase"></i> Business Questions</h4>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>What percentage of leads should be called automatically vs. manually?</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Do users need full transcripts or just AI-generated summaries?</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Should AI be allowed to book appointments directly?</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Should clients be able to edit the conversation script?</span>
+                        </div>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h4><i class="fas fa-code"></i> Technical Questions</h4>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Preferred cloud vendor? (AWS, Azure, GCP, or multi-cloud)</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Are GDPR or call-recording consent constraints applicable?</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>Do we need real multilingual support (mid-call switching)?</span>
+                        </div>
+                        
+                        <div class="question-item">
+                            <i class="fas fa-question" style="color: var(--accent); margin-right: 10px;"></i>
+                            <span>What is the acceptable fail rate for AI calls?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>AI Agent Design Specification | Leadsmart Platform</h3>
+            <div class="footer-note">
+                This document outlines the complete technical and business requirements for implementing an AI-powered voice agent for lead qualification. All architecture decisions are subject to stakeholder approval and technical feasibility assessment.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Flowchart Data
+        const flow = [
+            {
+                id: "lead",
+                title: "New Lead",
+                subtitle: "campaign_leads.csv, Facebook lead ads, Manual creation",
+                alts: [
+                    {title: "Sources", items: ["Facebook Lead Forms", "CSV file upload", "Manual entry in dashboard"]}
+                ]
+            },
+            {
+                id: "intake",
+                title: "Lead Intake Layer",
+                subtitle: "Captures and processes incoming leads",
+                alts: [
+                    {title: "Webhook-based ingestion", items: ["Real-time, fastest processing", "Requires stable infrastructure", "Best for high-priority leads"]},
+                    {title: "Batch ingestion (10 min)", items: ["Cheaper, simpler implementation", "Delayed calls → lower conversion", "Suitable for cost-sensitive cases"]},
+                    {title: "Event Queue (Kafka/SQS)", items: ["Highly scalable", "More complex architecture", "Best for distributed systems"]}
+                ]
+            },
+            {
+                id: "schedule",
+                title: "Call Orchestration Layer",
+                subtitle: "Schedules calls, checks hours, handles retries",
+                alts: [
+                    {title: "Cron-based scheduler", items: ["Easy to implement", "Not scalable for high volume", "Limited retry logic"]},
+                    {title: "Workflow engines (Temporal/Airflow)", items: ["Robust, retries built-in", "Requires infrastructure setup", "Complex workflows supported"]},
+                    {title: "Cloud-native Queues (AWS Step Functions)", items: ["Serverless, scalable", "Vendor lock-in risk", "Cost-effective for variable load"]}
+                ]
+            },
+            {
+                id: "voice",
+                title: "Voice AI Stack",
+                subtitle: "STT → LLM → TTS with automatic language detection",
+                alts: [
+                    {title: "STT Options", items: ["Google Speech-to-Text (Arabic support)", "Deepgram (real-time optimized)", "OpenAI Realtime (edge-case understanding)"]},
+                    {title: "LLM Options", items: ["OpenAI GPT-4/GPT-5 Realtime", "Llama 3 70B (hosted)", "Azure OpenAI (enterprise)", "Custom fine-tuned model"]},
+                    {title: "TTS Options", items: ["ElevenLabs (best natural voice)", "Google TTS (reliable, cheap)", "Azure Neural Voice (great Arabic)"]}
+                ]
+            },
+            {
+                id: "qual",
+                title: "Qualification Engine",
+                subtitle: "Extracts timeline, budget, preference, intent classification",
+                alts: [
+                    {title: "Rule-based scoring", items: ["Transparent, easy to debug", "Less flexible for complex scenarios", "Fast implementation"]},
+                    {title: "ML model", items: ["More accurate with sufficient data", "Needs training data pipeline", "Better for complex patterns"]},
+                    {title: "Hybrid (Rules + ML)", items: ["Best balance of accuracy & control", "More development time required", "Most robust solution"]}
+                ]
+            },
+            {
+                id: "crm",
+                title: "CRM Integration Layer",
+                subtitle: "Updates lead status, notes, scores, responses",
+                alts: [
+                    {title: "Direct DB write", items: ["Fastest performance", "Tight coupling, security concerns", "Harder to maintain"]},
+                    {title: "Internal REST API", items: ["Clean separation, maintainable", "Slightly slower, API management", "Better for microservices"]},
+                    {title: "Webhooks to downstream", items: ["Event-driven, scalable", "Complex error handling", "Decoupled architecture"]}
+                ]
+            },
+            {
+                id: "dash",
+                title: "User Dashboard",
+                subtitle: "AI Call Status, Transcript, Summary, Lead Score",
+                alts: [
+                    {title: "Client Dashboard Features", items: ["AI Caller Toggle per campaign", "Call settings configuration", "Lead timeline with scores"]},
+                    {title: "Monitoring & Visibility", items: ["Audio recording (optional)", "Full conversation transcript", "Recommended next steps"]}
+                ]
+            }
+        ];
+
+        // Render Flowchart
+        const flowcol = document.getElementById('flowcol');
+
+        function createNode(step, idx) {
+            // Main container
+            const nodeWrap = document.createElement('div');
+            nodeWrap.style.display = 'flex';
+            nodeWrap.style.flexDirection = 'column';
+            nodeWrap.style.alignItems = 'center';
+            nodeWrap.style.width = '100%';
+
+            // Node element
+            const node = document.createElement('div');
+            node.className = 'node';
+            node.setAttribute('data-id', step.id);
+
+            const h = document.createElement('h3');
+            h.textContent = step.title;
+            node.appendChild(h);
+
+            if (step.subtitle) {
+                const p = document.createElement('p');
+                p.textContent = step.subtitle;
+                node.appendChild(p);
+            }
+
+            // Alternatives container
+            const altsWrap = document.createElement('div');
+            altsWrap.className = 'alts';
+            altsWrap.setAttribute('data-alts-for', step.id);
+
+            if (step.alts && step.alts.length) {
+                step.alts.forEach(alt => {
+                    const altCard = document.createElement('div');
+                    altCard.className = 'alt';
+
+                    const altTitle = document.createElement('div');
+                    altTitle.className = 'alt-title';
+                    
+                    const altIcon = document.createElement('i');
+                    altIcon.className = 'fas fa-exchange-alt';
+                    altIcon.style.fontSize = '12px';
+                    altTitle.appendChild(altIcon);
+                    
+                    const altTitleText = document.createTextNode(alt.title);
+                    altTitle.appendChild(altTitleText);
+                    
+                    altCard.appendChild(altTitle);
+
+                    const ul = document.createElement('ul');
+                    alt.items.forEach(it => {
+                        const li = document.createElement('li');
+                        li.textContent = it;
+                        ul.appendChild(li);
+                    });
+                    altCard.appendChild(ul);
+                    altsWrap.appendChild(altCard);
+                });
+            }
+
+            // Connector (except after last node)
+            const connector = document.createElement('div');
+            connector.className = 'connector';
+
+            // Assemble
+            nodeWrap.appendChild(node);
+            nodeWrap.appendChild(altsWrap);
+            if (idx !== flow.length - 1) nodeWrap.appendChild(connector);
+
+            return nodeWrap;
+        }
+
+        function renderFlow() {
+            flowcol.innerHTML = '';
+            flow.forEach((step, index) => {
+                const nodeEl = createNode(step, index);
+                flowcol.appendChild(nodeEl);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderFlow);
+    </script>
+</body>
+</html>
