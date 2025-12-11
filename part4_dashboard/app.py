@@ -379,9 +379,9 @@ def load_and_prepare():
     """Load CSVs and build campaign-level performance table."""
     
     # Load data
-   campaign_leads = pd.read_csv(os.path.join(BASE_DIR, "campaign_leads.csv"))
-   campaigns = pd.read_csv(os.path.join(BASE_DIR, "campaigns.csv"))
-   insights = pd.read_csv(os.path.join(BASE_DIR, "insights.csv"))
+    campaign_leads = pd.read_csv(os.path.join(BASE_DIR, "campaign_leads.csv"))
+    campaigns = pd.read_csv(os.path.join(BASE_DIR, "campaigns.csv"))
+    insights = pd.read_csv(os.path.join(BASE_DIR, "insights.csv"))
 
 
     # Rename IDs
