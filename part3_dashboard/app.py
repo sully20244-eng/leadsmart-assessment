@@ -7,6 +7,11 @@ import plotly.graph_objects as go
 import plotly.subplots as sp
 from joblib import load
 from datetime import datetime, timedelta
+import os
+
+# Get absolute directory of this script (so Streamlit can find CSVs)
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 # =========================
 # 1) ENHANCED Page Config + CSS
