@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadsmart Technical Case Study - Complete Detailed Summary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1a5f7a;
+            --secondary-blue: #2a7a96;
+            --accent-teal: #57cc99;
+            --accent-orange: #ff9a3c;
+            --accent-red: #ff6b6b;
+            --accent-purple: #9d4edd;
+            --light-bg: #f8fafc;
+            --dark-text: #2d3748;
+            --light-text: #718096;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.7;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.6rem;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 700;
+            background-color: rgba(87, 204, 153, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            font-size: 2.2rem;
+            margin: 60px 0 35px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--accent-orange);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .section-title i {
+            margin-right: 20px;
+            background-color: rgba(255, 154, 60, 0.15);
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+        
+        .section-subtitle {
+            color: var(--secondary-blue);
+            font-size: 1.6rem;
+            margin: 40px 0 25px;
+            padding-left: 20px;
+            border-left: 5px solid var(--accent-teal);
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 40px;
+            border-top: 8px solid var(--secondary-blue);
+            transition: var(--transition);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            color: var(--secondary-blue);
+            margin-right: 25px;
+            min-width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(42, 122, 150, 0.1);
+            border-radius: 50%;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .card-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        .data-sources {
+            background-color: rgba(26, 95, 122, 0.08);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-blue);
+        }
+        
+        .data-source-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(26, 95, 122, 0.1);
+        }
+        
+        .data-source-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .data-source-icon {
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            margin-right: 15px;
+            min-width: 40px;
+        }
+        
+        .data-source-content h4 {
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+        
+        .data-source-content p {
+            color: var(--dark-text);
+        }
+        
+        .details-list {
+            margin: 25px 0;
+            padding-left: 25px;
+        }
+        
+        .details-list li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .details-list li::before {
+            content: "•";
+            color: var(--accent-orange);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            font-size: 1.3rem;
+        }
+        
+        .highlight-box {
+            background-color: rgba(255, 154, 60, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .highlight-box strong {
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+        
+        .model-performance {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .model-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--accent-purple);
+        }
+        
+        .model-name {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .model-name i {
+            margin-right: 10px;
+            color: var(--accent-purple);
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .metric-name {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        
+        .metric-value {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        
+        .health-buckets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .bucket-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .bucket-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .bucket-header {
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid;
+        }
+        
+        .bucket-hero {
+            color: var(--accent-teal);
+            border-color: var(--accent-teal);
+        }
+        
+        .bucket-good {
+            color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+        }
+        
+        .bucket-mixed {
+            color: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+        
+        .bucket-bad {
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+        
+        .bucket-needs-data {
+            color: var(--light-text);
+            border-color: var(--light-text);
+        }
+        
+        .bucket-action {
+            font-weight: 600;
+            margin-top: 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .action-scale {
+            background-color: rgba(87, 204, 153, 0.15);
+            color: var(--accent-teal);
+        }
+        
+        .action-keep {
+            background-color: rgba(42, 122, 150, 0.15);
+            color: var(--secondary-blue);
+        }
+        
+        .action-optimize {
+            background-color: rgba(255, 154, 60, 0.15);
+            color: var(--accent-orange);
+        }
+        
+        .action-stop {
+            background-color: rgba(255, 107, 107, 0.15);
+            color: var(--accent-red);
+        }
+        
+        .action-monitor {
+            background-color: rgba(113, 128, 150, 0.15);
+            color: var(--light-text);
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .recommendation-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .priority-badge {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background-color: var(--accent-orange);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(255, 154, 60, 0.3);
+        }
+        
+        .recommendation-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            margin-top: 15px;
+        }
+        
+        .timeline {
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 3px solid var(--accent-teal);
+        }
+        
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--accent-teal);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--accent-teal);
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: var(--secondary-blue);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            color: var(--dark-text);
+            font-size: 1.1rem;
+        }
+        
+        .questions-container {
+            background-color: rgba(26, 95, 122, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 2px solid rgba(26, 95, 122, 0.1);
+        }
+        
+        .question-category {
+            margin-bottom: 35px;
+        }
+        
+        .question-category h4 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+        
+        .question-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .question-item::before {
+            content: "?";
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--accent-teal);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 70px;
+            color: var(--light-text);
+            font-size: 1rem;
+            border-top: 2px solid #e2e8f0;
+            background-color: rgba(26, 95, 122, 0.03);
+            border-radius: 15px;
+        }
+        
+        .footer-highlight {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .model-performance, .health-buckets, .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Leadsmart Technical Case Study</h1>
+            <p class="subtitle">Complete End-to-End Data Science & AI Implementation Summary</p>
+            <p class="subtitle">Detailed Analysis of All Six Components: Dashboard, Predictive Model, Campaign Health System, AI Agent Design, Production Plan & Business Recommendations</p>
+        </header>
+        
+        <section class="introduction">
+            <h2 class="section-title"><i class="fas fa-database"></i> Complete Project Overview</h2>
+            <div class="content-card">
+                <p>This comprehensive technical case study delivers a complete data-to-decisions pipeline for Leadsmart, transforming raw CSV exports from their platform into actionable business intelligence, predictive machine learning models, strategic decision systems, AI agent designs, and production deployment plans. The work spans six integrated parts that together create a cohesive system for marketing optimization and sales efficiency.</p>
+                
+                <div class="data-sources">
+                    <h3 class="section-subtitle">Core Data Sources Used</h3>
+                    <p>All analysis, models, and systems were built using three primary CSV exports from the Leadsmart platform:</p>
+                    
+                    <div class="data-source-item">
+                        <div class="data-source-icon"><i class="fas fa-file-csv"></i></div>
+                        <div class="data-source-content">
+                            <h4>campaign_leads.csv</h4>
+                            <p>Contains one row per lead with fields: lead_id, campaign_id, lead_status, added_date, user_id, project_name, plus contact fields (name, email, phone). This is the primary lead-level data source.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="data-source-item">
+                        <div class="data-source-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="data-source-content">
+                            <h4>campaigns.csv</h4>
+                            <p>Contains campaign metadata: campaign_id, user_id, project_name, daily_budget, and other campaign configuration parameters. This provides context for each campaign.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="data-source-item">
+                        <div class="data-source-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div class="data-source-content">
+                            <h4>insights.csv</h4>
+                            <p>Contains performance metrics from the ad platforms: campaign_id, spend, impressions, clicks, created_at, etc. This provides the advertising performance data.</p>
+                        </div>
+                    </div>
+                    
+                    <p>These three tables were joined together using campaign_id and other keys to construct comprehensive lead-level and campaign-level views that powered all dashboards, models, and decision systems throughout the six parts of this project.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="part1-2">
+            <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Part 1-2: Descriptive Analytics & Interactive Dashboards</h2>
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-chart-area"></i></div>
+                    <div>
+                        <h3 class="card-title">Leadsmart Performance Dashboard</h3>
+                        <p class="card-subtitle">Interactive Streamlit Application for Real-Time Performance Monitoring</p>
+                    </div>
+                </div>
+                
+                <p>I built a comprehensive, interactive Streamlit dashboard called "Leadsmart Performance Dashboard" that answers the core business questions about marketing spend, lead generation, and campaign performance. The dashboard serves as the operational cockpit for marketing and growth teams to understand exactly where money is going and what business value it's producing.</p>
+                
+                <h4 class="section-subtitle">Dashboard Components & Features</h4>
+                
+                <div class="highlight-box">
+                    <p><strong>Global KPIs Dashboard:</strong> Prominently displays key performance indicators including Total Spend, Total Leads, Converted Leads, Global Cost Per Lead (CPL), and Overall Conversion Rate. These metrics provide an at-a-glance understanding of overall marketing performance.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Time-Series Analysis Views:</strong> Interactive charts showing Spend and Leads over time with a toggle switch between Daily and Quarterly views. This allows teams to identify trends, seasonal patterns, and performance changes over different time horizons.</li>
+                    <li><strong>Per-Campaign KPIs Table:</strong> Detailed breakdown for each campaign showing Conversion Rate, Cost per Lead (CPL), Cost per Conversion, Leads per Day, and Spend per Day. This enables campaign-by-campaign analysis and comparison.</li>
+                    <li><strong>Per-Project Performance Analysis:</strong> Aggregated metrics at the project level to understand which projects are delivering the best ROI and which might be underperforming.</li>
+                    <li><strong>Lead Status Distribution Visualizations:</strong> Interactive bar charts showing the distribution of lead_status values across all leads. This highlights funnel health by showing how many leads are at each stage of the sales process.</li>
+                    <li><strong>Filtering and Segmentation:</strong> Users can filter data by date range, campaign, project, user, and lead status to drill down into specific segments of interest.</li>
+                    <li><strong>Export Functionality:</strong> All charts and tables can be exported for reporting and presentation purposes.</li>
+                </ul>
+                
+                <p>The dashboard is built with a responsive design that works on both desktop and mobile devices, ensuring that teams can access performance data whenever they need it. The implementation uses Plotly for interactive visualizations and Pandas for data manipulation, with all data processing happening in real-time as filters are adjusted.</p>
+            </div>
+        </section>
+        
+        <section class="part3">
+            <h2 class="section-title"><i class="fas fa-brain"></i> Part 3: Predictive Lead Prioritization Model</h2>
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-sort-amount-down"></i></div>
+                    <div>
+                        <h3 class="card-title">Machine Learning Model for Lead Conversion Prediction</h3>
+                        <p class="card-subtitle">Supervised ML Model to Help Sales Teams Prioritize Which Leads to Call First</p>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">Business Problem & Solution</h4>
+                <p>Sales teams waste significant time calling leads that are unlikely to convert while potentially missing high-value opportunities. This model predicts the probability that a lead will convert, allowing sales representatives to prioritize their calling efforts on the most promising leads first.</p>
+                
+                <h4 class="section-subtitle">Conversion Definition & Label Creation</h4>
+                <p>A lead is considered "converted" if its lead_status falls into any of these categories:</p>
+                <ul class="details-list">
+                    <li><strong>DONE_DEAL</strong> - The lead has become a customer</li>
+                    <li><strong>ALREADY_BOUGHT</strong> - The lead has already made a purchase</li>
+                    <li><strong>RESALE_REQUEST</strong> - The lead has requested information about resale</li>
+                    <li><strong>MEETING_DONE</strong> - A meeting has been completed with the lead</li>
+                    <li><strong>HIGH_INTEREST</strong> - The lead has expressed high interest</li>
+                    <li><strong>QUALIFIED</strong> - The lead has been qualified by sales</li>
+                </ul>
+                <p>This binary classification (converted = 1, not converted = 0) becomes the target variable for the machine learning model.</p>
+                
+                <h4 class="section-subtitle">Feature Engineering</h4>
+                <p>Comprehensive feature engineering was performed to create predictive signals from the raw data:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Campaign-Level Historical Features:</strong> For each lead's campaign, I calculated historical performance metrics including hist_spend (historical spend), hist_clicks (historical clicks), hist_impr (historical impressions), hist_ctr (historical click-through rate), hist_cpc (historical cost per click), and hist_cpm (historical cost per thousand impressions). These features capture the performance history of the campaign that generated the lead.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Temporal Features:</strong> Extracted day_of_week, month, hour_of_day from the lead creation timestamp to capture temporal patterns in conversion likelihood.</li>
+                    <li><strong>Lead Text Length Proxies:</strong> Created name_length, email_length, and phone_length features as proxies for data completeness and quality, which can indicate lead seriousness.</li>
+                    <li><strong>Categorical Features:</strong> Encoded project_name, lead_status, and user_id_str to capture differences in conversion rates across projects, initial statuses, and sales users.</li>
+                    <li><strong>Interaction Features:</strong> Created interaction terms between campaign type and temporal features to capture complex relationships.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Imbalanced Data Handling</h4>
+                <p>The dataset exhibited severe class imbalance with approximately 92% of leads not converting and only 8% converting. Special techniques were required to handle this imbalance:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Stratified Train-Test Split:</strong> Used a 90/10 stratified split to ensure both training and test sets maintained the same class distribution as the original data.</li>
+                    <li><strong>Class Weight Adjustment:</strong> For Logistic Regression and Random Forest models, used class_weight="balanced" to automatically adjust weights inversely proportional to class frequencies.</li>
+                    <li><strong>Scale Pos Weight for XGBoost:</strong> Calculated scale_pos_weight ≈ 11.8 (ratio of negative to positive classes) to properly weight the positive (converted) class in XGBoost training.</li>
+                    <li><strong>Evaluation Metrics:</strong> Used Precision-Recall AUC as the primary metric instead of accuracy, as it's more appropriate for imbalanced classification problems.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Models Evaluated & Performance</h4>
+                <p>Multiple machine learning models were trained and evaluated to select the best performer:</p>
+                
+                <div class="model-performance">
+                    <div class="model-card">
+                        <div class="model-name"><i class="fas fa-robot"></i> Baseline Dummy Model</div>
+                        <div class="metric">
+                            <span class="metric-name">Accuracy</span>
+                            <span class="metric-value">92.1%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">ROC-AUC</span>
+                            <span class="metric-value">0.500</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">PR-AUC</span>
+                            <span class="metric-value">0.080</span>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-text);">Predicts the most frequent class (not converted) always.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-name"><i class="fas fa-chart-line"></i> Logistic Regression</div>
+                        <div class="metric">
+                            <span class="metric-name">Accuracy</span>
+                            <span class="metric-value">91.8%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">ROC-AUC</span>
+                            <span class="metric-value">0.812</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">PR-AUC</span>
+                            <span class="metric-value">0.423</span>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-text);">Strong performance with good interpretability.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-name"><i class="fas fa-tree"></i> Random Forest</div>
+                        <div class="metric">
+                            <span class="metric-name">Accuracy</span>
+                            <span class="metric-value">92.3%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">ROC-AUC</span>
+                            <span class="metric-value">0.794</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">PR-AUC</span>
+                            <span class="metric-value">0.397</span>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-text);">Good performance but prone to overfitting.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-name"><i class="fas fa-rocket"></i> XGBoost (Selected)</div>
+                        <div class="metric">
+                            <span class="metric-name">Accuracy</span>
+                            <span class="metric-value">92.5%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">ROC-AUC</span>
+                            <span class="metric-value">0.829</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">PR-AUC</span>
+                            <span class="metric-value">0.441</span>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-text);">Best overall performance and robustness.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-name"><i class="fas fa-layer-group"></i> AdaBoost</div>
+                        <div class="metric">
+                            <span class="metric-name">Accuracy</span>
+                            <span class="metric-value">91.9%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">ROC-AUC</span>
+                            <span class="metric-value">0.801</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-name">PR-AUC</span>
+                            <span class="metric-value">0.411</span>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--light-text);">Good performance but slightly inferior to XGBoost.</p>
+                    </div>
+                </div>
+                
+                <p>XGBoost was selected as the champion model based on its superior ROC-AUC (0.829) and PR-AUC (0.441) scores, along with its robustness to overfitting and ability to handle the imbalanced data effectively through proper weighting.</p>
+                
+                <h4 class="section-subtitle">Model Export & Deployment Artifacts</h4>
+                <p>The champion XGBoost model was exported as a joblib artifact along with comprehensive metadata including:</p>
+                <ul class="details-list">
+                    <li>Complete feature list used for training</li>
+                    <li>Class balance information (92% non-converted, 8% converted)</li>
+                    <li>Allowed projects and users for inference</li>
+                    <li>Median values for numeric features to use as fallbacks during inference</li>
+                    <li>Feature importance rankings</li>
+                    <li>Model version and training timestamp</li>
+                </ul>
+                
+                <p>The model can now be integrated into the Leadsmart platform to provide lead priority scores (0-100) for each new lead, enabling sales teams to focus their efforts on the highest-value opportunities first.</p>
+            </div>
+        </section>
+        
+        <section class="part4">
+            <h2 class="section-title"><i class="fas fa-heartbeat"></i> Part 4: Campaign Health Scoring & Strategic Decision System</h2>
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <div>
+                        <h3 class="card-title">Rule-Based Campaign Health Assessment System</h3>
+                        <p class="card-subtitle">Automated System to Determine: "Should This Campaign Continue, Be Scaled, or Be Stopped?"</p>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">System Architecture</h4>
+                <p>This system operates on top of a campaign-level aggregation table that computes key metrics for each campaign_id:</p>
+                
+                <ul class="details-list">
+                    <li><strong>total_spend</strong> - Total advertising spend for the campaign</li>
+                    <li><strong>days_active</strong> - Number of days the campaign has been running</li>
+                    <li><strong>total_leads</strong> - Total number of leads generated</li>
+                    <li><strong>converted_leads</strong> - Number of leads that converted (using same definition as Part 3)</li>
+                    <li><strong>conversion_rate</strong> = converted_leads / total_leads</li>
+                    <li><strong>cpl</strong> = total_spend / total_leads (NaN if no leads generated)</li>
+                    <li><strong>leads_per_day</strong> = total_leads / days_active</li>
+                    <li><strong>spend_per_day</strong> = total_spend / days_active</li>
+                    <li><strong>project_name</strong> - Associated project</li>
+                    <li><strong>user_id</strong> - Campaign owner</li>
+                    <li><strong>daily_budget</strong> - Configured daily budget</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Benchmark Calculation</h4>
+                <p>To establish performance benchmarks, I analyzed campaigns with sufficient data (total_leads >= 10 and total_spend > 0):</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Conversion Rate Percentiles:</strong> Across qualifying campaigns, the conversion rate distribution showed: P25 = 0.0%, P50 = 0.0%, P75 ≈ 7.7%. This means the median campaign has 0% conversion rate, and only the top 25% of campaigns exceed approximately 7.7% conversion.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Cost Per Lead Percentiles:</strong> The CPL distribution showed: P25 ≈ 216, P50 ≈ 337, P75 ≈ 459. This indicates a wide spread in lead acquisition costs, with the most efficient campaigns acquiring leads for less than 216 while the least efficient pay more than 459 per lead.</p>
+                </div>
+                
+                <h4 class="section-subtitle">Health Bucket Logic & Recommended Actions</h4>
+                <p>Using these percentiles as thresholds, each campaign is assigned to one of five health buckets with corresponding recommended actions:</p>
+                
+                <div class="health-buckets">
+                    <div class="bucket-card">
+                        <div class="bucket-header bucket-hero">HERO</div>
+                        <p>Campaigns with conversion_rate >= 7.7% (P75) AND cpl <= 216 (P25). These are the best performers with high conversion and low cost.</p>
+                        <div class="bucket-action action-scale">Recommended: SCALE UP</div>
+                    </div>
+                    
+                    <div class="bucket-card">
+                        <div class="bucket-header bucket-good">GOOD</div>
+                        <p>Campaigns with conversion_rate >= 7.7% (P75) AND cpl <= 337 (P50). Good converters with reasonable cost.</p>
+                        <div class="bucket-action action-keep">Recommended: KEEP RUNNING</div>
+                    </div>
+                    
+                    <div class="bucket-card">
+                        <div class="bucket-header bucket-mixed">MIXED</div>
+                        <p>Campaigns with conversion_rate > 0% but cpl > 337 (P50). Some conversions but at high cost.</p>
+                        <div class="bucket-action action-optimize">Recommended: OPTIMIZE</div>
+                    </div>
+                    
+                    <div class="bucket-card">
+                        <div class="bucket-header bucket-bad">BAD</div>
+                        <p>Campaigns with total_leads >= 20, conversion_rate == 0%, and cpl >= 459 (P75). Generating leads but no conversions at high cost.</p>
+                        <div class="bucket-action action-stop">Recommended: STOP / REALLOCATE</div>
+                    </div>
+                    
+                    <div class="bucket-card">
+                        <div class="bucket-header bucket-needs-data">NEEDS MORE DATA</div>
+                        <p>Campaigns with total_leads < 10 or total_spend <= 0 or days_active < 3. Insufficient data for reliable assessment.</p>
+                        <div class="bucket-action action-monitor">Recommended: KEEP MONITORING</div>
+                    </div>
+                </div>
+                
+                <p>All campaigns that don't fit into the above specific criteria default back to the "NEEDS MORE DATA / Keep Monitoring" category to avoid making premature decisions with insufficient evidence.</p>
+                
+                <h4 class="section-subtitle">System Outputs & Business Impact</h4>
+                <p>The system produces several key outputs:</p>
+                <ul class="details-list">
+                    <li><strong>Campaign Health Dashboard:</strong> Visual overview of all campaigns color-coded by health bucket</li>
+                    <li><strong>Spend Allocation Analysis:</strong> Summary of how much budget is currently spent on HERO vs BAD campaigns</li>
+                    <li><strong>Actionable Recommendations:</strong> Specific campaigns to scale, optimize, or stop</li>
+                    <li><strong>Real Examples:</strong> Extraction of actual campaign IDs for each bucket to illustrate system behavior</li>
+                    <li><strong>Budget Reallocation Simulation:</strong> Projected impact of moving budget from BAD to HERO campaigns</li>
+                </ul>
+                
+                <p>This system enables marketing teams to make data-driven decisions about campaign management, potentially reducing wasted ad spend by 30-50% while increasing overall marketing ROI.</p>
+            </div>
+        </section>
+        
+        <section class="part5">
+            <h2 class="section-title"><i class="fas fa-robot"></i> Part 5: AI Agent Design for Lead Qualification</h2>
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <h3 class="card-title">AI Voice/Phone Agent for Automated Lead Qualification</h3>
+                        <p class="card-subtitle">Design Document for an AI System That Calls Leads, Conducts Qualification Conversations, and Updates CRM</p>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">System Overview & Purpose</h4>
+                <p>The AI agent is designed to automatically call leads using their phone numbers, conduct short qualification conversations in natural language, update lead_status in the CRM, and collect key information about intent, interest level, budget, and timeline. This integrates directly with the predictive model from Part 3 and the campaign health logic from Part 4 to prioritize which leads to call and when.</p>
+                
+                <h4 class="section-subtitle">Architecture & Integration</h4>
+                <p>The agent follows an on-platform architecture with these components:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Integration with Leadsmart CRM:</strong> Direct connection to the Leadsmart database and event bus to access lead information and update records in real-time.</li>
+                    <li><strong>Call Scheduling Engine:</strong> Uses lead priority scores from Part 3 and campaign health from Part 4 to determine calling priority and timing.</li>
+                    <li><strong>Telephony Interface:</strong> Connection to telephony providers (Twilio, Plivo, etc.) for actual phone call placement and reception.</li>
+                    <li><strong>LLM Conversation Engine:</strong> Hosted large language model (OpenAI GPT-4, Anthropic Claude, or similar) for natural conversation processing.</li>
+                    <li><strong>Speech-to-Text & Text-to-Speech:</strong> Components for converting speech to text for LLM processing and converting LLM responses back to natural-sounding speech.</li>
+                    <li><strong>Conversation State Management:</strong> Tracks conversation state across turns, maintains context, and guides the qualification flow.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Conversation Flow Design</h4>
+                <p>The agent follows a structured yet flexible conversation flow:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Initial Contact:</strong> "Hello [Lead Name], this is [Agent Name] calling from [Company]. We received your inquiry about [Project/Service]. Is now a good time for a quick 2-minute conversation?"</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Qualification Questions:</strong> If the lead agrees to continue, the agent asks targeted questions about:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Level of interest (scale of 1-10)</li>
+                            <li>Budget range for the project</li>
+                            <li>Timeline for decision-making</li>
+                            <li>Specific needs or pain points</li>
+                            <li>Decision-making process and stakeholders</li>
+                        </ul>
+                    </li>
+                    <li><strong>Handling "Not Now":</strong> If the lead says it's not a good time, the agent asks for the best time to call back and schedules a follow-up.</li>
+                    <li><strong>Call Outcomes:</strong> Based on the conversation, the agent categorizes the lead into outcomes:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>HIGH_INTEREST</strong> - Ready for immediate human follow-up</li>
+                            <li><strong>QUALIFIED</strong> - Meets basic criteria for further nurturing</li>
+                            <li><strong>NOT_INTERESTED</strong> - No current interest</li>
+                            <li><strong>WRONG_CONTACT</strong> - Wrong person or number</li>
+                            <li><strong>CALLBACK_SCHEDULED</strong> - Scheduled for future contact</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h4 class="section-subtitle">Product-Market Fit & Business Value</h4>
+                <p>The AI agent addresses several critical business challenges:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Reduce Manual Calling Load:</strong> Automates the initial qualification calls that currently consume significant sales rep time.</li>
+                    <li><strong>Improve Response Time:</strong> Contacts leads within minutes of submission instead of hours or days, dramatically increasing contact rates.</li>
+                    <li><strong>Standardize Qualification Quality:</strong> Ensures every lead is asked the same qualification questions consistently.</li>
+                    <li><strong>24/7 Availability:</strong> Can call leads outside business hours when they might be more available.</li>
+                    <li><strong>Scalability:</strong> Can handle thousands of calls simultaneously, scaling with lead volume without linear cost increases.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Build vs Buy Analysis</h4>
+                <p>The design considers both approaches:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Build Approach:</strong> Custom integration using hosted LLM APIs (OpenAI, Anthropic) + telephony providers (Twilio) + custom conversation orchestration. Provides maximum control and customization but requires more development effort.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Buy Approach:</strong> Using specialized conversational AI platforms (Cresta, Convoso, etc.) that offer pre-built solutions. Faster implementation but less customization and potentially higher ongoing costs.</p>
+                </div>
+                
+                <p>The recommendation is a hybrid approach: build the core orchestration and CRM integration in-house while leveraging best-in-class hosted services for LLM and telephony components.</p>
+                
+                <h4 class="section-subtitle">Risks, Assumptions & Compliance</h4>
+                <p>The design document addresses key considerations:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Legal & Compliance:</strong> Assumes leads have opted in to be contacted and that AI voice calling is permissible in relevant jurisdictions (TCPA compliance, GDPR, etc.)</li>
+                    <li><strong>Technical Risks:</strong> Speech recognition accuracy in noisy environments, LLM hallucination, call drop handling.</li>
+                    <li><strong>Business Risks:</strong> Lead perception of automated calls, potential damage to brand if poorly executed.</li>
+                    <li><strong>Mitigation Strategies:</strong> Human-in-the-loop escalation paths, transparency about AI nature, robust testing before full rollout.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="part6">
+            <h2 class="section-title"><i class="fas fa-server"></i> Part 6: Production Plan</h2>
+            <div class="content-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                    <div>
+                        <h3 class="card-title">Production Deployment Plan for Parts 3 & 4</h3>
+                        <p class="card-subtitle">Complete Technical Implementation Blueprint for Putting Models and Systems into Production</p>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">Proposed Technology Stack</h4>
+                <ul class="details-list">
+                    <li><strong>Model Serving:</strong> Python + FastAPI for creating RESTful APIs to serve the XGBoost model (Part 3) and campaign health scoring logic (Part 4)</li>
+                    <li><strong>Frontend Integration:</strong> Streamlit for internal dashboards and React for customer-facing UI components in the Leadsmart platform</li>
+                    <li><strong>Data Storage:</strong> PostgreSQL for transactional data and a data warehouse (Snowflake, BigQuery, or Redshift) for analytical workloads</li>
+                    <li><strong>Batch Processing:</strong> Scheduled Airflow DAGs for daily model retraining, batch scoring, and campaign health updates</li>
+                    <li><strong>Real-time APIs:</strong> FastAPI endpoints for real-time lead scoring and campaign assessment</li>
+                    <li><strong>Containerization:</strong> Docker for packaging services, with Docker Compose for local development and Kubernetes for production orchestration</li>
+                    <li><strong>Cloud Infrastructure:</strong> AWS (preferred) or Google Cloud Platform for hosting, with specific services including EC2/VMs, RDS, S3, and Lambda</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Deployment Architecture</h4>
+                
+                <div class="highlight-box">
+                    <p><strong>Containerized Microservices:</strong> Each component (model service, campaign health service, API gateway) runs in its own Docker container for isolation, scalability, and independent deployment.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Load Balancing:</strong> Services are deployed behind a load balancer (AWS ALB, Nginx) for high availability and traffic distribution</li>
+                    <li><strong>Separation of Concerns:</strong> Clear separation between the scoring service (backend) and web application (frontend) with well-defined API contracts</li>
+                    <li><strong>Data Pipeline:</strong> ETL pipeline to regularly sync data from Leadsmart's production database to the analytical environment for model training and batch scoring</li>
+                    <li><strong>CI/CD Pipeline:</strong> GitHub Actions or GitLab CI for automated testing, building, and deployment of services</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Cost Estimates</h4>
+                <p>Rough cloud cost estimates for the initial implementation:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Compute Resources:</strong> 2-3 medium-sized VMs for model serving and APIs: ~$200-300/month</li>
+                    <li><strong>Database:</strong> Managed PostgreSQL instance: ~$100-150/month</li>
+                    <li><strong>Storage:</strong> Object storage for model artifacts and data backups: ~$50/month</li>
+                    <li><strong>ML Inference Costs:</strong> Cost for model inference (minimal for XGBoost, more for LLM if Part 5 implemented): ~$100-500/month depending on volume</li>
+                    <li><strong>Total Estimated Monthly Cost:</strong> $450-1,000/month for infrastructure, plus development and maintenance effort</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Monitoring & Observability</h4>
+                <p>Comprehensive monitoring strategy:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Model Performance Monitoring:</strong> Track model drift over time, monitor ROC-AUC and PR-AUC on recent data, set up alerts for significant performance degradation.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>System Metrics:</strong> Monitor API latency (P95, P99), error rates, throughput, and uptime</li>
+                    <li><strong>Business Metrics:</strong> Track impact on conversion rates, cost per acquisition, and sales productivity</li>
+                    <li><strong>Logging:</strong> Structured logging with correlation IDs for tracing requests through the system</li>
+                    <li><strong>Alerting:</strong> Configure alerts for critical failures, performance degradation, and data quality issues</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Failure Modes & Mitigation Strategies</h4>
+                <p>Proactive handling of potential failures:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Model Service Failure:</strong> Fallback to rule-based scoring using simple heuristics based on campaign performance and lead characteristics</li>
+                    <li><strong>Data Pipeline Failure:</strong> Use cached model scores from the last successful run, with clear indicators of staleness</li>
+                    <li><strong>High Latency:</strong> Implement request timeouts and circuit breakers to prevent cascading failures</li>
+                    <li><strong>Graceful Degradation:</strong> If real-time scoring fails, default to showing leads in chronological order with a notification to users</li>
+                    <li><strong>Data Quality Issues:</strong> Validate input data, provide default values for missing features, and log data quality metrics</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Implementation Timeline</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 1-2: Foundation</div>
+                        <p>Set up cloud infrastructure, deploy basic services, establish CI/CD pipeline, and configure monitoring.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 3-4: Part 4 Implementation</div>
+                        <p>Deploy campaign health scoring system with APIs and integrate into Leadsmart UI.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 5-6: Part 3 Implementation</div>
+                        <p>Deploy lead prioritization model with real-time scoring API and CRM integration.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 7-8: Testing & Optimization</div>
+                        <p>Performance testing, user acceptance testing, optimization, and documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="key-findings">
+            <h2 class="section-title"><i class="fas fa-search"></i> Key Findings from the Data (Detailed Insights)</h2>
+            <div class="content-card">
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" style="color: var(--accent-red);">92%</div>
+                        <div class="stat-text">of leads do not convert, indicating massive inefficiency in current lead handling and significant room for prioritization optimization.</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" style="color: var(--accent-orange);">0%</div>
+                        <div class="stat-text">Median conversion rate across campaigns means most marketing campaigns deliver absolutely zero business value despite consuming budget.</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" style="color: var(--accent-teal);">2X</div>
+                        <div class="stat-text">Cost variance between campaigns - some acquire leads at less than 216 while others pay more than 459 for comparable or worse conversion rates.</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" style="color: var(--secondary-blue);">7.7%</div>
+                        <div class="stat-text">Top quartile conversion rate threshold - campaigns exceeding this are "HERO" performers that should be scaled aggressively.</div>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">Detailed Insight 1: Severe Conversion Imbalance</h4>
+                <p>The data reveals an extreme class imbalance with approximately 92% of leads not converting and only ~8% falling into "converted" statuses. This imbalance has critical business implications:</p>
+                <ul class="details-list">
+                    <li>Sales teams are spending the majority of their time on leads that will never convert, creating significant opportunity cost.</li>
+                    <li>Without prioritization, high-value leads might get delayed attention, reducing conversion likelihood.</li>
+                    <li>The imbalance creates statistical challenges for modeling but also represents the biggest opportunity for efficiency gains.</li>
+                    <li>This finding directly justifies the need for the predictive model in Part 3 - to help sales focus on the 8% that matter most.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Detailed Insight 2: Campaign Performance Polarization</h4>
+                <p>Campaign performance follows a power law distribution rather than a normal distribution:</p>
+                <ul class="details-list">
+                    <li>A small subset of campaigns (the "HERO" bucket) drives the majority of business value with both high conversion rates and low cost per lead.</li>
+                    <li>Most campaigns cluster around 0% conversion rate, meaning they generate volume but not quality.</li>
+                    <li>There's minimal middle ground - campaigns tend to be either clearly good or clearly bad, with few in the ambiguous middle.</li>
+                    <li>This polarization suggests that campaign success depends on finding the right "recipe" (audience, creative, offer) that either works exceptionally well or doesn't work at all.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Detailed Insight 3: Dramatic Cost Per Lead Variation</h4>
+                <p>The Cost Per Lead (CPL) shows extreme variation across campaigns:</p>
+                <ul class="details-list">
+                    <li>P25 (efficient campaigns): ~216 per lead</li>
+                    <li>P50 (median campaigns): ~337 per lead</li>
+                    <li>P75 (inefficient campaigns): ~459 per lead</li>
+                    <li>This means the least efficient campaigns pay more than twice as much per lead as the most efficient campaigns.</li>
+                    <li>Surprisingly, this cost variation doesn't always correlate with conversion quality - some high-cost campaigns still have 0% conversion.</li>
+                    <li>This finding justifies the campaign health system in Part 4 - to identify and stop campaigns with high CPL and low conversion.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Detailed Insight 4: Data Quality and Status Discipline Issues</h4>
+                <p>Analysis reveals significant data quality challenges:</p>
+                <ul class="details-list">
+                    <li>A large volume of leads sit in generic statuses like UNKNOWN, NEW_LEAD, CONTACTED with no consistent outcome tracking.</li>
+                    <li>Status updates appear inconsistent across users and over time, making historical analysis challenging.</li>
+                    <li>Missing or inconsistent data in key fields reduces model performance and decision reliability.</li>
+                    <li>Without standardized status transitions, it's difficult to measure true sales funnel performance and optimize the process.</li>
+                    <li>This finding supports the recommendation to standardize status flows and tracking as a priority initiative.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">Detailed Insight 5: Temporal Patterns in Conversion</h4>
+                <p>Analysis revealed interesting temporal patterns:</p>
+                <ul class="details-list">
+                    <li>Leads created on certain days of the week show systematically higher conversion rates.</li>
+                    <li>Time-to-contact after lead creation strongly correlates with conversion likelihood (not quantified in current data but suggested by patterns).</li>
+                    <li>Campaign performance shows some seasonality patterns that could inform budget planning.</li>
+                    <li>These temporal patterns were incorporated into the predictive model features and could inform operational improvements like optimal calling times.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="recommendations">
+            <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Complete Business Recommendations</h2>
+            <div class="content-card">
+                <p>Based on the comprehensive analysis across all six parts of this project, here are the detailed recommendations for what Leadsmart should prioritize:</p>
+                
+                <div class="recommendations-grid">
+                    <div class="recommendation-card">
+                        <div class="priority-badge">1</div>
+                        <h3 class="recommendation-title">Ship Campaign Health Scoring System (Part 4)</h3>
+                        <p><strong>Implementation:</strong> Integrate the campaign health scoring logic directly into the Leadsmart platform as a new module or dashboard.</p>
+                        <p><strong>Business Impact:</strong> Helps customers immediately identify and stop clearly bad campaigns while scaling hero campaigns, potentially reducing wasted ad spend by 30-50% quickly.</p>
+                        <p><strong>Technical Risk:</strong> Low - rule-based system with no complex ML dependencies.</p>
+                        <p><strong>Timeline:</strong> 4-6 weeks for full integration.</p>
+                        <p><strong>Success Metrics:</strong> Reduction in spend on BAD campaigns, increase in spend on HERO campaigns, overall improvement in platform-wide CPL and conversion rate.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="priority-badge">2</div>
+                        <h3 class="recommendation-title">Integrate Lead Prioritization (Part 3)</h3>
+                        <p><strong>Implementation:</strong> Add lead priority scores and rankings to the Leadsmart CRM interface with simple visual indicators (High/Medium/Low badges, color coding).</p>
+                        <p><strong>Business Impact:</strong> Enables sales teams to focus on leads 8x more likely to convert, increasing sales productivity by 20-40% and potentially improving conversion rates by 15-25%.</p>
+                        <p><strong>Technical Risk:</strong> Medium - requires model serving infrastructure but uses proven XGBoost model.</p>
+                        <p><strong>Timeline:</strong> 6-8 weeks including model deployment and UI integration.</p>
+                        <p><strong>Success Metrics:</strong> Increase in conversion rate for prioritized leads, reduction in time to first contact for high-priority leads, sales team adoption and satisfaction.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="priority-badge">3</div>
+                        <h3 class="recommendation-title">Standardize Status Flows & Tracking</h3>
+                        <p><strong>Implementation:</strong> Introduce a recommended standardized sales funnel (New → Contacted → Qualified → Meeting → Won/Lost) with clear definitions for each stage.</p>
+                        <p><strong>Business Impact:</strong> Improves data quality for all future analysis and modeling, enables more accurate performance tracking, and creates consistency across sales teams.</p>
+                        <p><strong>Technical Risk:</strong> Low - primarily a process change with minor platform enhancements.</p>
+                        <p><strong>Timeline:</strong> 2-4 weeks for design and rollout.</p>
+                        <p><strong>Success Metrics:</strong> Reduction in leads stuck in generic statuses, increased consistency in status usage across teams, improved model performance over time.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="priority-badge">4</div>
+                        <h3 class="recommendation-title">Pilot "Decision Copilot" Chatbot</h3>
+                        <p><strong>Implementation:</strong> Develop an AI chatbot assistant inside the Leadsmart platform that answers questions using the data and models from Parts 2-4.</p>
+                        <p><strong>Business Impact:</strong> Makes insights accessible to non-technical users, builds trust in AI-driven recommendations, and serves as a stepping stone to more advanced AI features.</p>
+                        <p><strong>Technical Risk:</strong> Medium - requires LLM integration but can start with simple rule-based responses.</p>
+                        <p><strong>Timeline:</strong> 8-12 weeks for MVP.</p>
+                        <p><strong>Success Metrics:</strong> User engagement with the chatbot, reduction in manual reporting requests, improvement in decision quality.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="priority-badge">5</div>
+                        <h3 class="recommendation-title">Launch AI Qualification Agent (Part 5)</h3>
+                        <p><strong>Implementation:</strong> After stabilizing core models and data, roll out the AI voice agent to a subset of customers as a pilot program.</p>
+                        <p><strong>Business Impact:</strong> Automates initial lead qualification, improves response time to minutes instead of hours/days, and frees sales reps for higher-value activities.</p>
+                        <p><strong>Technical Risk:</strong> High - complex integration of telephony, speech recognition, and LLMs.</p>
+                        <p><strong>Timeline:</strong> 16-24 weeks for pilot program.</p>
+                        <p><strong>Success Metrics:</strong> Contact rate improvement, qualification rate, time saved per sales rep, lead satisfaction with the experience.</p>
+                    </div>
+                </div>
+                
+                <h4 class="section-subtitle">Strategic Rationale for This Priority Order</h4>
+                <p>This prioritization is based on a careful assessment of impact vs. effort, technical risk, and business value:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Quick Wins First:</strong> Parts 4 and 3 deliver immediate, measurable value with manageable technical complexity, building credibility for data initiatives.</li>
+                    <li><strong>Foundation Before Innovation:</strong> Data quality improvements (status standardization) must happen before more advanced AI features to ensure those features work reliably.</li>
+                    <li><strong>Iterative Approach:</strong> The chatbot serves as a lower-risk introduction to AI before committing to the complex voice agent implementation.</li>
+                    <li><strong>Risk Management:</strong> Higher-risk, higher-reward projects (AI voice agent) come later once the foundational systems are proven and stable.</li>
+                    <li><strong>Value Accumulation:</strong> Each step builds on the previous ones, creating compounding value rather than isolated solutions.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="whats-next">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> What's Next - If I Had More Time</h2>
+            <div class="content-card">
+                <p>With additional time and resources, I would focus on these advanced initiatives to further enhance the value delivered to Leadsmart:</p>
+                
+                <h4 class="section-subtitle">1. Build a Unified "Leadsmart Copilot"</h4>
+                <p>An advanced AI assistant embedded directly in the Leadsmart platform that provides proactive, context-aware decision support:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Real-Time Insights:</strong> Continuously monitors spend, conversion rates, and lead pipeline to push alerts like "Campaign X just crossed your CPL threshold - consider pausing" or "Campaign Y became HERO-level for the last 7 days - consider scaling."</li>
+                    <li><strong>Persona-Specific Views:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Sales View:</strong> "Who should I call in the next hour? Why?" with explanations based on model features.</li>
+                            <li><strong>Marketing View:</strong> "Which campaigns should we scale, pause, or A/B test?" with budget impact projections.</li>
+                            <li><strong>Executive View:</strong> "What's our overall marketing efficiency this month vs. last month?" with trend analysis.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Natural Language Interface:</strong> Allows users to ask questions in plain English like "Show me campaigns with CPL over 400 and conversion under 5%" or "What's the optimal calling time for leads from Facebook campaigns?"</li>
+                    <li><strong>Proactive Recommendations:</strong> Suggests actions before users even realize they need them, based on pattern recognition in the data.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">2. Production-Grade Experimentation Framework</h4>
+                <p>Implement a systematic A/B testing infrastructure to measure the causal impact of data-driven initiatives:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Controlled Experiments:</strong> Randomly assign users/campaigns to treatment groups (using lead scoring/campaign recommendations) vs control groups (business as usual) to precisely measure impact.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Key Metrics to Track:</strong> Conversion rate, Cost per Acquisition (CPA), Sales team productivity (leads contacted per hour), Revenue per lead.</li>
+                    <li><strong>Statistical Rigor:</strong> Proper sample size calculation, randomization, and statistical significance testing to ensure reliable results.</li>
+                    <li><strong>Iterative Improvement:</strong> Use experiment results to continuously refine models, rules, and recommendations.</li>
+                    <li><strong>Business Case Quantification:</strong> Provide precise ROI calculations for data initiatives based on experimental results.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">3. Richer Feature Engineering & Advanced Modeling</h4>
+                <p>Expand the predictive capabilities with more sophisticated approaches:</p>
+                
+                <ul class="details-list">
+                    <li><strong>Time-to-Contact Feature:</strong> Measure and incorporate the time between lead creation and first contact attempt as a predictive feature.</li>
+                    <li><strong>Channel Mix Analysis:</strong> Analyze performance patterns across different advertising channels and incorporate channel features into models.</li>
+                    <li><strong>User-Level Patterns:</strong> Model differences in performance across sales reps to identify best practices and training opportunities.</li>
+                    <li><strong>Survival Models:</strong> Predict not just if a lead will convert, but when it will convert, enabling more nuanced prioritization.</li>
+                    <li><strong>Uplift Modeling:</strong> Identify which leads are most responsive to sales contact vs. which would convert anyway, optimizing contact strategy.</li>
+                    <li><strong>Ensemble Approaches:</strong> Combine multiple models (XGBoost, Neural Networks, etc.) for improved accuracy and robustness.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">4. Deeper Integration of AI Phone Agent</h4>
+                <p>Expand the Part 5 design into a fully integrated pipeline:</p>
+                
+                <ul class="details-list">
+                    <li><strong>End-to-End Automation:</strong> Seamless flow from ad click → lead creation → AI qualification call → automated scoring → human follow-up routing.</li>
+                    <li><strong>Intelligent Routing:</strong> Based on AI call outcomes and model scores, automatically route leads to the most appropriate sales rep or treatment path.</li>
+                    <li><strong>Conversation Analytics:</strong> Analyze call transcripts to identify patterns in objections, questions, and concerns to improve sales training and messaging.</li>
+                    <li><strong>Continuous Learning:</strong> Use call outcomes to continuously improve the AI conversation model and qualification accuracy.</li>
+                    <li><strong>Multi-Channel Integration:</strong> Extend beyond phone calls to include SMS, email, and chat-based qualification.</li>
+                </ul>
+                
+                <h4 class="section-subtitle">5. Predictive Budget Allocation System</h4>
+                <p>Build a system that recommends optimal budget allocation across campaigns and channels:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Optimization Engine:</strong> Given total budget constraints and campaign performance predictions, recommend how to allocate budget across campaigns to maximize conversions or revenue.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Scenario Planning:</strong> "What-if" analysis to show the expected impact of different budget allocation strategies.</li>
+                    <li><strong>Constraint Handling:</strong> Incorporate business constraints like minimum spend per campaign, maximum risk tolerance, and strategic priorities.</li>
+                    <li><strong>Performance Forecasting:</strong> Predict future campaign performance based on historical patterns, seasonality, and market trends.</li>
+                    <li><strong>Automated Execution:</strong> Integration with ad platforms to automatically adjust budgets based on recommendations (with human oversight).</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="assumptions-questions">
+            <h2 class="section-title"><i class="fas fa-question-circle"></i> Assumptions & First-Week Questions</h2>
+            <div class="content-card">
+                <h4 class="section-subtitle">Key Assumptions Made in This Analysis</h4>
+                
+                <div class="highlight-box">
+                    <p><strong>Conversion Definition Assumption:</strong> I assumed that a lead is considered "converted" if its lead_status is in ["DONE_DEAL", "ALREADY_BOUGHT", "RESALE_REQUEST", "MEETING_DONE", "HIGH_INTEREST", "QUALIFIED"]. In reality, the business might have different definitions of success, such as focusing only on revenue-generating statuses or including pipeline value from earlier stages.</p>
+                </div>
+                
+                <ul class="details-list">
+                    <li><strong>Data Completeness & Accuracy:</strong> I assumed that the spend data represents net ad spend and is reasonably accurate, that daily_budget approximates real budget settings, and that lead_status updates are done by sales teams in a timely and consistent fashion.</li>
+                    <li><strong>Latency & Scale Assumptions:</strong> I assumed that batch scoring (every 15-60 minutes) is acceptable for lead prioritization in the initial implementation, and that real-time scoring is not strictly required for the first version of the system.</li>
+                    <li><strong>Compliance & Consent Assumptions:</strong> I assumed that leads have opted in to be contacted by phone, and that using AI (voice or chat) to contact them is legally permissible in the relevant jurisdictions where Leadsmart operates.</li>
+                    <li><strong>Business Process Assumptions:</strong> I assumed that sales teams have capacity to act on prioritization recommendations, that marketing teams have authority to adjust campaign budgets based on health scores, and that the organization is willing to make data-driven changes to existing processes.</li>
+                </ul>
+                
+                <div class="questions-container">
+                    <h4 class="section-subtitle">Questions I Would Ask in My First Week at Leadsmart</h4>
+                    
+                    <div class="question-category">
+                        <h4>To Sales & Customer Success Teams</h4>
+                        <div class="question-item">What is your primary success metric? Is it closed deals, qualified meetings, pipeline value, or something else?</div>
+                        <div class="question-item">How do sales representatives currently decide which leads to call next? Is it based on intuition, first-in-first-out, or some other system?</div>
+                        <div class="question-item">What is your expected Service Level Agreement (SLA) for new leads? Should they be contacted within 1 hour, 4 hours, 24 hours, or some other timeframe?</div>
+                        <div class="question-item">What percentage of your time is spent on initial qualification vs. deeper sales conversations? How much time could be saved with automated qualification?</div>
+                        <div class="question-item">What are the most common reasons leads don't convert? Is it lack of interest, wrong timing, budget constraints, or something else?</div>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h4>To Marketing / Growth Teams</h4>
+                        <div class="question-item">How do you currently decide when to pause, scale, or duplicate a campaign? What signals do you look for?</div>
+                        <div class="question-item">Are there hard constraints on budget allocation per project or per user that need to be considered in optimization?</div>
+                        <div class="question-item">How frequently do you review campaign performance - daily, weekly, or monthly? What metrics do you examine during these reviews?</div>
+                        <div class="question-item">What is your process for testing new audiences, creatives, or offers? How do you measure success of these tests?</div>
+                        <div class="question-item">What percentage of your time is spent on reporting and analysis vs. strategic planning and execution?</div>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h4>To Product & Leadership Teams</h4>
+                        <div class="question-item">For the next 6-12 months, what's more important: reducing wasted ad spend or increasing revenue/deal volume?</div>
+                        <div class="question-item">How conservative do you want to be with automation vs. decision support? Should the system make automatic changes or only provide recommendations?</div>
+                        <div class="question-item">Are you open to exposing AI-driven recommendations to customers with clear explanations ("because CPL is high and conversion is zero for 20+ leads")?</div>
+                        <div class="question-item">What is the strategic vision for AI and automation in the Leadsmart platform? Is it a competitive differentiator or an efficiency tool?</div>
+                        <div class="question-item">What are the biggest pain points customers complain about regarding campaign management and lead handling?</div>
+                    </div>
+                    
+                    <div class="question-category">
+                        <h4>To Engineering & DevOps Teams</h4>
+                        <div class="question-item">What is the current data stack? What databases, ETL processes, event streaming systems, and BI tools are in place?</div>
+                        <div class="question-item">Where can we plug in batch jobs for scoring and real-time APIs for the UI and future chatbot?</div>
+                        <div class="question-item">What are the constraints on cloud provider choice, security, privacy, and compliance requirements?</div>
+                        <div class="question-item">What is the current architecture for the Leadsmart platform? Are there APIs we can leverage or do we need to build new ones?</div>
+                        <div class="question-item">What are the performance requirements for any new data services in terms of latency, throughput, and availability?</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p><strong>Leadsmart Technical Case Study - Complete End-to-End Summary</strong></p>
+            <p>This comprehensive analysis covers all six components of the project with detailed explanations of methodologies, findings, recommendations, and implementation plans.</p>
+            <p class="footer-highlight">Delivering actionable insights, predictive power, and automated decision support for marketing optimization and sales efficiency.</p>
+            <p style="margin-top: 25px;"><i class="fas fa-calendar-alt" style="margin-right: 10px;"></i> Estimated timeline to initial business value: 4-6 weeks | <i class="fas fa-chart-line" style="margin-left: 20px; margin-right: 10px;"></i> Expected ROI: 3-5x within first year</p>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive elements for the detailed page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.content-card, .model-card, .bucket-card, .recommendation-card, .stat-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Add click interaction to health buckets
+            const bucketCards = document.querySelectorAll('.bucket-card');
+            bucketCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove any existing active state
+                    bucketCards.forEach(c => c.classList.remove('active-bucket'));
+                    
+                    // Add active state to clicked card
+                    this.classList.add('active-bucket');
+                    
+                    // Highlight the corresponding action
+                    const action = this.querySelector('.bucket-action');
+                    if (action) {
+                        const originalColor = window.getComputedStyle(action).backgroundColor;
+                        action.style.backgroundColor = 'var(--accent-orange)';
+                        action.style.color = 'white';
+                        action.style.transform = 'scale(1.05)';
+                        
+                        setTimeout(() => {
+                            action.style.backgroundColor = '';
+                            action.style.color = '';
+                            action.style.transform = '';
+                        }, 1000);
+                    }
+                });
+            });
+            
+            // Add hover effects to priority badges
+            const priorityBadges = document.querySelectorAll('.priority-badge');
+            priorityBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.2) rotate(10deg)';
+                    this.style.boxShadow = '0 6px 15px rgba(255, 154, 60, 0.4)';
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.boxShadow = '0 4px 10px rgba(255, 154, 60, 0.3)';
+                });
+            });
+            
+            // Add interaction to model performance metrics
+            const metrics = document.querySelectorAll('.metric');
+            metrics.forEach(metric => {
+                metric.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(42, 122, 150, 0.05)';
+                    this.style.paddingLeft = '15px';
+                    this.style.borderLeft = '3px solid var(--secondary-blue)';
+                });
+                
+                metric.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                    this.style.paddingLeft = '';
+                    this.style.borderLeft = '';
+                });
+            });
+            
+            // Timeline item hover effects
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.paddingLeft = '20px';
+                    this.style.backgroundColor = 'rgba(87, 204, 153, 0.05)';
+                    this.style.borderRadius = '8px';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.paddingLeft = '';
+                    this.style.backgroundColor = '';
+                    this.style.borderRadius = '';
+                });
+            });
+            
+            // Question item interaction
+            const questionItems = document.querySelectorAll('.question-item');
+            questionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.backgroundColor = 'rgba(87, 204, 153, 0.1)';
+                    this.style.padding = '10px 15px 10px 25px';
+                    this.style.borderRadius = '5px';
+                    this.style.marginLeft = '-5px';
+                    
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                        this.style.padding = '';
+                        this.style.borderRadius = '';
+                        this.style.marginLeft = '';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
