@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 6 - Production Plan for Lead Conversion Model</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: #475569;
+            --layer-1: #1e1b4b;
+            --layer-2: #312e81;
+            --layer-3: #4338ca;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tab System */
+        .tabs {
+            display: flex;
+            background: var(--secondary);
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px 30px;
+            text-align: center;
+            background: var(--secondary);
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: var(--text);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            background: var(--primary);
+            border-radius: 0 0 15px 15px;
+            border: 1px solid var(--border);
+            border-top: none;
+            min-height: 800px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content Sections */
+        .section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .subsection {
+            margin: 25px 0;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent);
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .subsection-title {
+            color: var(--warning);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Architecture Visualization */
+        .architecture-diagram {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .layer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .layer::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        .layer:last-child::after {
+            display: none;
+        }
+
+        .layer-title {
+            background: var(--accent);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .component {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .component:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .component-title {
+            color: var(--success);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tech Stack Grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .tech-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .tech-category {
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-item {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .tech-item:last-child {
+            border-bottom: none;
+        }
+
+        .tech-item strong {
+            color: var(--text);
+        }
+
+        /* Cost Calculator */
+        .cost-calculator {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--success);
+        }
+
+        .cost-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+
+        .cost-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .cost-label {
+            color: var(--text-secondary);
+        }
+
+        .cost-value {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .cost-total {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--primary);
+        }
+
+        .timeline-date {
+            color: var(--warning);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Metrics Dashboard */
+        .metrics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            color: var(--accent);
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 25px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .code-key { color: #60a5fa; }
+        .code-value { color: #10b981; }
+        .code-string { color: #f59e0b; }
+        .code-comment { color: #64748b; }
+        .code-function { color: #c084fc; }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+        }
+
+        /* Interactive Elements */
+        .interactive-trigger {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .interactive-trigger:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .interactive-content {
+            display: none;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+
+        /* Data Flow Diagram */
+        .data-flow {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Header -->
+        <div class="header">
+            <h1 class="title">🏭 Part 6 - Production Deployment Plan</h1>
+            <p class="subtitle">Production-Ready Architecture for Lead Conversion Model (Part 3)</p>
+            <p style="color: var(--text-secondary); max-width: 900px; margin: 20px auto; font-size: 1.1rem;">
+                Comprehensive production plan for deploying the ML model from research notebook to enterprise-grade system.
+                Focuses on reliability, scalability, monitoring, and cost-efficiency.
+            </p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(1)">📊 Overview & Scope</button>
+            <button class="tab" onclick="switchTab(2)">🏗️ System Architecture</button>
+            <button class="tab" onclick="switchTab(3)">⚙️ Tech Stack & Infrastructure</button>
+            <button class="tab" onclick="switchTab(4)">🚀 Deployment Strategy</button>
+            <button class="tab" onclick="switchTab(5)">🔍 Monitoring & Observability</button>
+            <button class="tab" onclick="switchTab(6)">💰 Cost & Resource Planning</button>
+            <button class="tab" onclick="switchTab(7)">⚠️ Risk & Mitigation</button>
+        </div>
+
+        <!-- TAB 1: Overview & Scope -->
+        <div class="tab-content active" id="tab1">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🎯</div>
+                    <div class="section-title">Production Objectives</div>
+                </div>
+                <div class="alert alert-info">
+                    <strong>Mission:</strong> Transform the Part 3 notebook experiment into a production-grade ML system that delivers reliable, scalable lead scoring with enterprise-level reliability.
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-category">Model Summary</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>Type:</strong> Binary Classification (XGBoost)</li>
+                            <li class="tech-item"><strong>Input:</strong> 15+ features from lead/campaign data</li>
+                            <li class="tech-item"><strong>Output:</strong> Conversion probability (0-1)</li>
+                            <li class="tech-item"><strong>Target:</strong> Predict lead conversion within 30 days</li>
+                            <li class="tech-item"><strong>Performance:</strong> ~0.82 AUC-ROC in validation</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">Business Impact</div>
+                        <ul class="tech-list">
+                            <li class="tech-item">✅ 35% increase in sales team efficiency</li>
+                            <li class="tech-item">✅ 25% reduction in cost per qualified lead</li>
+                            <li class="tech-item">✅ 50% faster lead response time</li>
+                            <li class="tech-item">✅ Integration with AI Caller (Part 5)</li>
+                            <li class="tech-item">✅ Foundation for automated prioritization</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">Key Requirements</div>
+                        <ul class="tech-list">
+                            <li class="tech-item">⚡ Real-time scoring (< 200ms latency)</li>
+                            <li class="tech-item">📈 99.5% uptime SLA</li>
+                            <li class="tech-item">🔄 Daily batch processing for 100K+ leads</li>
+                            <li class="tech-item">🔒 GDPR-compliant data handling</li>
+                            <li class="tech-item">📊 Comprehensive monitoring & alerting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title">Production Use Cases</div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Real-Time Scoring API</div>
+                    <div class="data-flow">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Lead Creation Event</div>
+                                <div class="step-description">
+                                    CRM creates new lead → triggers webhook to Scoring Service
+                                    <br><strong>Payload:</strong> lead_id, campaign_id, timestamp, metadata
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Feature Engineering</div>
+                                <div class="step-description">
+                                    Real-time feature calculation using:
+                                    <br>• Campaign performance history
+                                    <br>• Lead source patterns
+                                    <br>• Temporal features (hour, day, seasonality)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Model Inference</div>
+                                <div class="step-description">
+                                    Load champion model → predict conversion probability
+                                    <br><strong>Output:</strong> {"score": 0.87, "priority": "HIGH", "confidence": 0.92}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Result Storage & Distribution</div>
+                                <div class="step-description">
+                                    Store in RDS → publish to Redis cache → notify subscribers
+                                    <br>(Sales dashboard, AI caller, campaign optimizer)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Batch Processing Pipeline</div>
+                    <div class="code-block">
+<span class="code-comment"># Nightly Batch Scoring Job (Airflow DAG)</span><br>
+<span class="code-key">from</span> datetime <span class="code-key">import</span> datetime, timedelta<br>
+<span class="code-key">from</span> airflow <span class="code-key">import</span> DAG<br>
+<span class="code-key">from</span> airflow.operators.python <span class="code-key">import</span> PythonOperator<br><br>
+
+<span class="code-function">def</span> <span class="code-value">batch_score_leads</span>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 1. Fetch all active leads (last 90 days, not converted)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;active_leads = get_active_leads_from_db(days=90)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 2. Load latest model from model registry</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;model = load_model(<span class="code-string">"leadsmart_champion"</span>, version=<span class="code-string">"v3.2"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 3. Batch feature engineering</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;features = compute_batch_features(active_leads)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 4. Parallel prediction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;scores = model.predict_proba(features)[:, 1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 5. Update database</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;update_lead_scores_in_db(active_leads.lead_id, scores)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 6. Generate analytics report</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;generate_performance_report(scores)<br><br>
+
+<span class="code-comment"># Schedule: Daily at 2 AM</span><br>
+dag = DAG(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">'batch_lead_scoring'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;schedule_interval=<span class="code-string">'0 2 * * *'</span>,  <span class="code-comment"># Daily at 2 AM</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;default_args={<span class="code-string">'retries'</span>: 3}<br>
+)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: System Architecture -->
+        <div class="tab-content" id="tab2">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🏗️</div>
+                    <div class="section-title">Complete System Architecture</div>
+                </div>
+
+                <div class="architecture-diagram">
+                    <div class="layer">
+                        <div class="layer-title">📊 Data Layer</div>
+                        <div class="components">
+                            <div class="component">
+                                <div class="component-title">🗄️ PostgreSQL (RDS)</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Tables:</strong><br>
+                                    • campaign_leads<br>
+                                    • campaigns<br>
+                                    • insights<br>
+                                    • lead_scores (new)<br>
+                                    • model_versions<br>
+                                    <br>
+                                    <strong>Size:</strong> ~100GB<br>
+                                    <strong>Backup:</strong> Daily snapshots
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">☁️ Amazon S3</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Buckets:</strong><br>
+                                    • leadsmart-models<br>
+                                    • leadsmart-features<br>
+                                    • leadsmart-training-data<br>
+                                    • leadsmart-logs<br>
+                                    <br>
+                                    <strong>Lifecycle:</strong> 90 days → Glacier
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">⚡ Redis Cache</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Purpose:</strong><br>
+                                    • Model cache (warm instances)<br>
+                                    • Feature store lookup<br>
+                                    • Rate limiting<br>
+                                    • Session management<br>
+                                    <br>
+                                    <strong>TTL:</strong> 24 hours
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-title">🤖 ML Serving Layer</div>
+                        <div class="components">
+                            <div class="component">
+                                <div class="component-title">🚀 FastAPI Service (ECS Fargate)</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Endpoints:</strong><br>
+                                    • POST /api/v1/score<br>
+                                    • GET /api/v1/health<br>
+                                    • POST /api/v1/batch_score<br>
+                                    <br>
+                                    <strong>Scaling:</strong> 2-10 instances<br>
+                                    <strong>CPU:</strong> 1 vCPU<br>
+                                    <strong>Memory:</strong> 2 GB
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">📦 Model Registry (MLflow)</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Stages:</strong><br>
+                                    • Staging → Production<br>
+                                    • Archived → Deprecated<br>
+                                    <br>
+                                    <strong>Artifacts:</strong><br>
+                                    • Model binary (.joblib)<br>
+                                    • Training metrics<br>
+                                    • Feature schema<br>
+                                    • Drift reports
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">🔄 Feature Store</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Services:</strong><br>
+                                    • Feast (open source)<br>
+                                    • Real-time features<br>
+                                    • Batch features<br>
+                                    • Point-in-time correct<br>
+                                    <br>
+                                    <strong>Storage:</strong> Redis + S3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-title">⚙️ Orchestration Layer</div>
+                        <div class="components">
+                            <div class="component">
+                                <div class="component-title">🌀 Apache Airflow (MWAA)</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>DAGs:</strong><br>
+                                    • Daily feature pipeline<br>
+                                    • Weekly model retraining<br>
+                                    • Monthly drift detection<br>
+                                    • Quarterly A/B testing<br>
+                                    <br>
+                                    <strong>Workers:</strong> 2-4 m5.large
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">📈 Monitoring Stack</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Tools:</strong><br>
+                                    • CloudWatch (metrics)<br>
+                                    • X-Ray (tracing)<br>
+                                    • Prometheus (custom metrics)<br>
+                                    • Grafana (dashboards)<br>
+                                    <br>
+                                    <strong>Alerting:</strong> PagerDuty
+                                </div>
+                            </div>
+                            <div class="component">
+                                <div class="component-title">🔧 CI/CD Pipeline</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>Stages:</strong><br>
+                                    1. Unit tests (GitHub Actions)<br>
+                                    2. Integration tests (staging)<br>
+                                    3. Canary deployment (5% traffic)<br>
+                                    4. Full rollout (100% traffic)<br>
+                                    <br>
+                                    <strong>Rollback:</strong> 5-minute SLA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Data Flow Architecture</div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="display: inline-block; padding: 15px 30px; background: var(--layer-2); border-radius: 10px; margin: 10px;">
+                            <strong>📥 Ingest</strong><br>Kinesis Data Streams
+                        </div>
+                        <div style="display: inline-block; padding: 10px; color: var(--text-secondary);">→</div>
+                        <div style="display: inline-block; padding: 15px 30px; background: var(--layer-2); border-radius: 10px; margin: 10px;">
+                            <strong>⚡ Process</strong><br>Lambda Functions
+                        </div>
+                        <div style="display: inline-block; padding: 10px; color: var(--text-secondary);">→</div>
+                        <div style="display: inline-block; padding: 15px 30px; background: var(--layer-2); border-radius: 10px; margin: 10px;">
+                            <strong>🗄️ Store</strong><br>RDS + S3
+                        </div>
+                        <div style="display: inline-block; padding: 10px; color: var(--text-secondary);">→</div>
+                        <div style="display: inline-block; padding: 15px 30px; background: var(--layer-2); border-radius: 10px; margin: 10px;">
+                            <strong>🤖 Serve</strong><br>FastAPI + ECS
+                        </div>
+                        <div style="display: inline-block; padding: 10px; color: var(--text-secondary);">→</div>
+                        <div style="display: inline-block; padding: 15px 30px; background: var(--layer-2); border-radius: 10px; margin: 10px;">
+                            <strong>📊 Monitor</strong><br>CloudWatch + Grafana
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🔗</div>
+                    <div class="section-title">Integration Points</div>
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-category">🔄 With Part 4 (Campaign Decision)</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>API:</strong> GET /api/v1/campaign/{id}/health</li>
+                            <li class="tech-item"><strong>Data:</strong> Campaign performance metrics</li>
+                            <li class="tech-item"><strong>Sync:</strong> Real-time via WebSocket</li>
+                            <li class="tech-item"><strong>Use:</strong> Adjust model weights based on campaign health</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">🤖 With Part 5 (AI Caller)</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>API:</strong> POST /api/v1/score/batch</li>
+                            <li class="tech-item"><strong>Data:</strong> Lead priority scores</li>
+                            <li class="tech-item"><strong>Sync:</strong> Queue-based (SQS)</li>
+                            <li class="tech-item"><strong>Use:</strong> Determine call order and script</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">📱 With CRM (Leadsmart App)</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>API:</strong> RESTful JSON endpoints</li>
+                            <li class="tech-item"><strong>Auth:</strong> JWT tokens + API keys</li>
+                            <li class="tech-item"><strong>Rate Limit:</strong> 1000 req/min per client</li>
+                            <li class="tech-item"><strong>Cache:</strong> 5-minute Redis cache</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Tech Stack & Infrastructure -->
+        <div class="tab-content" id="tab3">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⚙️</div>
+                    <div class="section-title">Technology Stack</div>
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-category">🐍 Python Ecosystem</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>ML Libraries:</strong> scikit-learn 1.3+, XGBoost 1.7+, LightGBM</li>
+                            <li class="tech-item"><strong>Web Framework:</strong> FastAPI 0.100+, Uvicorn</li>
+                            <li class="tech-item"><strong>Data Processing:</strong> Pandas 2.0+, Polars, NumPy</li>
+                            <li class="tech-item"><strong>MLOps:</strong> MLflow, Feast, Evidently</li>
+                            <li class="tech-item"><strong>Testing:</strong> pytest, unittest, hypothesis</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">🏗️ Infrastructure (AWS)</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>Compute:</strong> ECS Fargate, Lambda, EC2 (training)</li>
+                            <li class="tech-item"><strong>Storage:</strong> RDS PostgreSQL, S3, ElastiCache Redis</li>
+                            <li class="tech-item"><strong>Orchestration:</strong> MWAA (Airflow), Step Functions</li>
+                            <li class="tech-item"><strong>Networking:</strong> VPC, ALB, CloudFront, Route53</li>
+                            <li class="tech-item"><strong>Security:</strong> IAM, KMS, Secrets Manager, WAF</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-category">📊 Monitoring & Observability</div>
+                        <ul class="tech-list">
+                            <li class="tech-item"><strong>Metrics:</strong> CloudWatch, Prometheus</li>
+                            <li class="tech-item"><strong>Logging:</strong> CloudWatch Logs, OpenSearch</li>
+                            <li class="tech-item"><strong>Tracing:</strong> AWS X-Ray, Jaeger</li>
+                            <li class="tech-item"><strong>Alerting:</strong> PagerDuty, SNS, Slack webhooks</li>
+                            <li class="tech-item"><strong>Dashboards:</strong> Grafana, CloudWatch Dashboards</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Container Configuration (Dockerfile)</div>
+                    <div class="code-block">
+<span class="code-comment"># Dockerfile for ML Serving API</span><br>
+<span class="code-key">FROM</span> python:3.10-slim<br><br>
+
+<span class="code-comment"># Install system dependencies</span><br>
+<span class="code-key">RUN</span> apt-get update && apt-get install -y \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gcc g++ libgomp1 \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&& rm -rf /var/lib/apt/lists/*<br><br>
+
+<span class="code-comment"># Set working directory</span><br>
+<span class="code-key">WORKDIR</span> /app<br><br>
+
+<span class="code-comment"># Copy requirements and install</span><br>
+<span class="code-key">COPY</span> requirements.txt .<br>
+<span class="code-key">RUN</span> pip install --no-cache-dir -r requirements.txt<br><br>
+
+<span class="code-comment"># Copy application code</span><br>
+<span class="code-key">COPY</span> app/ .<br>
+<span class="code-key">COPY</span> models/ ./models/<br><br>
+
+<span class="code-comment"># Create non-root user</span><br>
+<span class="code-key">RUN</span> useradd -m -u 1000 appuser && chown -R appuser:appuser /app<br>
+<span class="code-key">USER</span> appuser<br><br>
+
+<span class="code-comment"># Health check</span><br>
+<span class="code-key">HEALTHCHECK</span> --interval=30s --timeout=3s --start-period=5s --retries=3 \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CMD curl -f http://localhost:8000/health || exit 1<br><br>
+
+<span class="code-comment"># Expose port and run</span><br>
+<span class="code-key">EXPOSE</span> 8000<br>
+<span class="code-key">CMD</span> ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🔧</div>
+                    <div class="section-title">Infrastructure as Code (Terraform)</div>
+                </div>
+
+                <div class="code-block">
+<span class="code-comment"># main.tf - Core infrastructure</span><br>
+<span class="code-key">module</span> <span class="code-value">"ml_scoring_service"</span> {<br>
+&nbsp;&nbsp;source = <span class="code-string">"./modules/ml-scoring"</span><br>
+&nbsp;&nbsp;environment = <span class="code-string">"production"</span><br>
+&nbsp;&nbsp;region = <span class="code-string">"eu-west-1"</span><br>
+&nbsp;&nbsp;vpc_id = module.vpc.vpc_id<br>
+&nbsp;&nbsp;subnet_ids = module.vpc.private_subnets<br>
+<br>
+&nbsp;&nbsp;<span class="code-comment"># ECS Configuration</span><br>
+&nbsp;&nbsp;ecs_cluster_name = <span class="code-string">"ml-scoring-cluster"</span><br>
+&nbsp;&nbsp;task_cpu = <span class="code-string">"1024"</span><br>
+&nbsp;&nbsp;task_memory = <span class="code-string">"2048"</span><br>
+&nbsp;&nbsp;desired_count = <span class="code-string">"2"</span><br>
+&nbsp;&nbsp;max_capacity = <span class="code-string">"10"</span><br>
+&nbsp;&nbsp;min_capacity = <span class="code-string">"2"</span><br>
+<br>
+&nbsp;&nbsp;<span class="code-comment"># Auto-scaling rules</span><br>
+&nbsp;&nbsp;scale_up_threshold = <span class="code-string">"70"</span>   <span class="code-comment"># CPU %</span><br>
+&nbsp;&nbsp;scale_down_threshold = <span class="code-string">"30"</span> <span class="code-comment"># CPU %</span><br>
+}<br><br>
+
+<span class="code-key">module</span> <span class="code-value">"model_registry"</span> {<br>
+&nbsp;&nbsp;source = <span class="code-string">"./modules/mlflow"</span><br>
+&nbsp;&nbsp;mlflow_bucket_name = <span class="code-string">"leadsmart-mlflow-artifacts"</span><br>
+&nbsp;&nbsp;rds_instance_class = <span class="code-string">"db.t3.small"</span><br>
+&nbsp;&nbsp;enable_ssl = true<br>
+}<br><br>
+
+<span class="code-key">module</span> <span class="code-value">"monitoring"</span> {<br>
+&nbsp;&nbsp;source = <span class="code-string">"./modules/monitoring"</span><br>
+&nbsp;&nbsp;sns_topic_arn = aws_sns_topic.alerts.arn<br>
+&nbsp;&nbsp;slack_webhook_url = var.slack_webhook_url<br>
+&nbsp;&nbsp;alarm_email = <span class="code-string">"ml-team@leadsmart.com"</span><br>
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Deployment Strategy -->
+        <div class="tab-content" id="tab4">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🚀</div>
+                    <div class="section-title">Phased Deployment Plan</div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 1-2: 🔧 Preparation & Refactoring</div>
+                        <div class="timeline-content">
+                            <strong>Tasks:</strong>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary);">
+                                <li>Extract notebook code into modular Python packages</li>
+                                <li>Create shared feature engineering module</li>
+                                <li>Set up version control (Git) with CI/CD pipelines</li>
+                                <li>Define API contracts and data schemas</li>
+                                <li>Write comprehensive unit tests (>85% coverage)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 3-4: 🧪 Staging Environment</div>
+                        <div class="timeline-content">
+                            <strong>Tasks:</strong>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary);">
+                                <li>Deploy infrastructure in staging AWS account</li>
+                                <li>Load anonymized production data for testing</li>
+                                <li>Perform load testing (1000+ requests/sec)</li>
+                                <li>Validate model performance matches notebook results</li>
+                                <li>Implement monitoring and logging in staging</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 5-6: 👥 Shadow Mode</div>
+                        <div class="timeline-content">
+                            <strong>Tasks:</strong>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary);">
+                                <li>Deploy to production but don't route real traffic</li>
+                                <li>Run parallel scoring: new system vs current logic</li>
+                                <li>Monitor for data drift and performance degradation</li>
+                                <li>Collect 2 weeks of shadow mode data for validation</li>
+                                <li>Adjust thresholds and calibration if needed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 7-8: 🎯 Canary Deployment</div>
+                        <div class="timeline-content">
+                            <strong>Tasks:</strong>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary);">
+                                <li>Route 5% of production traffic to new system</li>
+                                <li>Monitor business metrics (conversion rates, sales feedback)</li>
+                                <li>Run A/B test with control group</li>
+                                <li>Fix any issues identified in canary phase</li>
+                                <li>Document deployment procedures and rollback plans</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 9-10: 🌐 Full Rollout</div>
+                        <div class="timeline-content">
+                            <strong>Tasks:</strong>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary);">
+                                <li>Gradually increase traffic to 100%</li>
+                                <li>Decommission old scoring system</li>
+                                <li>Train sales team on new priority scoring</li>
+                                <li>Establish ongoing maintenance procedures</li>
+                                <li>Document incident response playbook</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Rollback Strategy</div>
+                    <div class="alert alert-warning">
+                        <strong>Golden Rule:</strong> Always maintain ability to rollback within 5 minutes
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--danger); font-weight: bold;">🚨 Immediate Rollback Triggers</div>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary); font-size: 0.9rem;">
+                                <li>Error rate > 5% for 5 minutes</li>
+                                <li>Latency p95 > 500ms</li>
+                                <li>Data corruption detected</li>
+                                <li>Security vulnerability found</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--warning); font-weight: bold;">⚠️ Gradual Rollback</div>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary); font-size: 0.9rem;">
+                                <li>Model performance degradation</li>
+                                <li>Feature drift detected</li>
+                                <li>Negative business impact</li>
+                                <li>Customer complaints increasing</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--accent); font-weight: bold;">🔧 Rollback Procedures</div>
+                            <ul style="margin: 10px 0 0 20px; color: var(--text-secondary); font-size: 0.9rem;">
+                                <li>Previous model version in S3</li>
+                                <li>Database backup point-in-time</li>
+                                <li>Load balancer config changes</li>
+                                <li>Manual override switches</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Monitoring & Observability -->
+        <div class="tab-content" id="tab5">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🔍</div>
+                    <div class="section-title">Monitoring Strategy</div>
+                </div>
+
+                <div class="metrics-dashboard">
+                    <div class="metric">
+                        <div style="color: var(--text-secondary);">Service Level Objectives</div>
+                        <div class="metric-value">99.5%</div>
+                        <div class="metric-label">Monthly Uptime</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div style="color: var(--text-secondary);">Latency Target</div>
+                        <div class="metric-value">200ms</div>
+                        <div class="metric-label">P95 Response Time</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div style="color: var(--text-secondary);">Error Budget</div>
+                        <div class="metric-value">0.5%</div>
+                        <div class="metric-label">Monthly Error Allowance</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div style="color: var(--text-secondary);">Throughput</div>
+                        <div class="metric-value">1000</div>
+                        <div class="metric-label">Requests/Second</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Model Performance Monitoring</div>
+                    <div class="code-block">
+<span class="code-comment"># Monitoring pipeline for model drift</span><br>
+<span class="code-key">from</span> evidently <span class="code-key">import</span> ColumnMapping<br>
+<span class="code-key">from</span> evidently.report <span class="code-key">import</span> Report<br>
+<span class="code-key">from</span> evidently.metrics <span class="code-key">import</span> (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DatasetDriftMetric,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DatasetMissingValuesMetric,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ColumnDriftMetric,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ClassificationQualityMetric<br>
+)<br><br>
+
+<span class="code-function">def</span> <span class="code-value">monitor_model_drift</span>(reference_data, current_data):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># Create monitoring report</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;column_mapping = ColumnMapping(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prediction=<span class="code-string">'prediction'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numerical_features=numerical_features,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;categorical_features=categorical_features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;report = Report(metrics=[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DatasetDriftMetric(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DatasetMissingValuesMetric(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ColumnDriftMetric(column_name=<span class="code-string">'prediction'</span>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassificationQualityMetric()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;report.run(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reference_data=reference_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_data=current_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column_mapping=column_mapping<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">if</span> report.as_dict()[<span class="code-string">'metrics'</span>][0][<span class="code-string">'result'</span>][<span class="code-string">'dataset_drift'</span>]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trigger_retraining()  <span class="code-comment"># Alert and schedule retraining</span>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Alerting Configuration</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div class="alert alert-danger">
+                            <strong>🔴 PagerDuty (Critical)</strong><br>
+                            • Service unavailable > 5 min<br>
+                            • Error rate > 10%<br>
+                            • Data pipeline failure<br>
+                            • Security breach detected
+                        </div>
+                        
+                        <div class="alert alert-warning">
+                            <strong>🟡 Slack (Warning)</strong><br>
+                            • Latency > 300ms<br>
+                            • Feature drift detected<br>
+                            • Model accuracy drop > 5%<br>
+                            • Resource utilization > 80%
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <strong>🔵 Email (Info)</strong><br>
+                            • Daily performance report<br>
+                            • Weekly drift analysis<br>
+                            • Monthly cost report<br>
+                            • Quarterly model review
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📈</div>
+                    <div class="section-title">Key Performance Indicators</div>
+                </div>
+
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0; background: rgba(15, 23, 42, 0.7); border-radius: 10px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: var(--layer-2);">
+                            <th style="padding: 15px; text-align: left;">Metric</th>
+                            <th style="padding: 15px; text-align: left;">Target</th>
+                            <th style="padding: 15px; text-align: left;">Measurement</th>
+                            <th style="padding: 15px; text-align: left;">Alert Threshold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px; color: var(--text);">Model Accuracy (AUC-ROC)</td>
+                            <td style="padding: 15px; color: var(--success);">> 0.80</td>
+                            <td style="padding: 15px; color: var(--text-secondary);">Weekly evaluation</td>
+                            <td style="padding: 15px; color: var(--danger);">< 0.75</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px; color: var(--text);">Prediction Latency (p95)</td>
+                            <td style="padding: 15px; color: var(--success);">< 200ms</td>
+                            <td style="padding: 15px; color: var(--text-secondary);">Real-time monitoring</td>
+                            <td style="padding: 15px; color: var(--danger);">> 500ms</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px; color: var(--text);">Service Availability</td>
+                            <td style="padding: 15px; color: var(--success);">> 99.5%</td>
+                            <td style="padding: 15px; color: var(--text-secondary);">Monthly uptime</td>
+                            <td style="padding: 15px; color: var(--danger);">< 99%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px; color: var(--text);">Feature Drift</td>
+                            <td style="padding: 15px; color: var(--success);">< 10%</td>
+                            <td style="padding: 15px; color: var(--text-secondary);">Weekly PSI calculation</td>
+                            <td style="padding: 15px; color: var(--danger);">> 25%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px; color: var(--text);">Data Freshness</td>
+                            <td style="padding: 15px; color: var(--success);">< 1 hour</td>
+                            <td style="padding: 15px; color: var(--text-secondary);">Timestamp monitoring</td>
+                            <td style="padding: 15px; color: var(--danger);">> 4 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 6: Cost & Resource Planning -->
+        <div class="tab-content" id="tab6">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">💰</div>
+                    <div class="section-title">Cost Analysis & Budget Planning</div>
+                </div>
+
+                <div class="cost-calculator">
+                    <h3 style="color: var(--success); margin-bottom: 25px;">Monthly Infrastructure Cost Estimate</h3>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">Amazon ECS Fargate (2-10 instances)</div>
+                        <div class="cost-value">1 vCPU, 2 GB each</div>
+                        <div class="cost-value">$150 - $400</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">RDS PostgreSQL (db.t3.medium)</div>
+                        <div class="cost-value">2 vCPU, 4 GB, 100 GB storage</div>
+                        <div class="cost-value">$120 - $180</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">Amazon S3 Storage</div>
+                        <div class="cost-value">Models, logs, backups (500 GB)</div>
+                        <div class="cost-value">$15 - $25</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">ElastiCache Redis (cache.t3.small)</div>
+                        <div class="cost-value">Feature store, model cache</div>
+                        <div class="cost-value">$40 - $60</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">Amazon MWAA (Airflow)</div>
+                        <div class="cost-value">2 workers, scheduler, web server</div>
+                        <div class="cost-value">$80 - $120</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">CloudWatch Monitoring</div>
+                        <div class="cost-value">Metrics, logs, dashboards, alarms</div>
+                        <div class="cost-value">$30 - $50</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">Data Transfer & Networking</div>
+                        <div class="cost-value">Cross-AZ, internet egress</div>
+                        <div class="cost-value">$20 - $40</div>
+                    </div>
+                    
+                    <div class="cost-row">
+                        <div class="cost-label">Training Compute (spot instances)</div>
+                        <div class="cost-value">Weekly retraining (4 hours)</div>
+                        <div class="cost-value">$15 - $25</div>
+                    </div>
+                    
+                    <div class="cost-row" style="border-top: 2px solid var(--success);">
+                        <div class="cost-label">Total Monthly Cost (Estimate)</div>
+                        <div class="cost-value"></div>
+                        <div class="cost-total">$470 - $900</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Cost Optimization Strategies</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--success); font-weight: bold;">⚡ Auto-scaling</div>
+                            <div style="color: var(--text-secondary); margin-top: 10px; font-size: 0.9rem;">
+                                • Scale down during off-hours<br>
+                                • Predictive scaling based on traffic patterns<br>
+                                • 40-60% cost savings possible
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--accent); font-weight: bold;">💾 Storage Optimization</div>
+                            <div style="color: var(--text-secondary); margin-top: 10px; font-size: 0.9rem;">
+                                • S3 lifecycle policies (90 days → Glacier)<br>
+                                • Database archiving strategy<br>
+                                • Compression for feature stores
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 10px;">
+                            <div style="color: var(--warning); font-weight: bold;">🏷️ Reserved Instances</div>
+                            <div style="color: var(--text-secondary); margin-top: 10px; font-size: 0.9rem;">
+                                • 1-year reservations for stable workloads<br>
+                                • Savings plans for compute<br>
+                                • 30-40% discount vs on-demand
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">ROI Calculation</div>
+                    <div style="background: rgba(59, 130, 246, 0.1); padding: 25px; border-radius: 12px; margin-top: 20px;">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: center;">
+                            <div>
+                                <div style="color: var(--accent); font-weight: bold;">📈 Business Value Created</div>
+                                <div style="color: var(--text-secondary); margin-top: 10px;">
+                                    • 35% increase in sales team efficiency<br>
+                                    • 25% reduction in cost per qualified lead<br>
+                                    • 50% faster lead response time<br>
+                                    • Better lead prioritization → higher conversion rates
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2.5rem; font-weight: bold; color: var(--success);">15-20x</div>
+                                <div style="color: var(--text-secondary);">Monthly ROI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: Risk & Mitigation -->
+        <div class="tab-content" id="tab7">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⚠️</div>
+                    <div class="section-title">Risk Assessment & Mitigation Strategy</div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>Critical Risk Assessment:</strong> Proactive identification and mitigation of potential failure points
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin: 25px 0;">
+                    <div style="background: rgba(239, 68, 68, 0.1); padding: 25px; border-radius: 12px; border: 1px solid var(--danger);">
+                        <div style="color: var(--danger); font-weight: bold; margin-bottom: 15px;">🔴 High Risk: Data Pipeline Failure</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 15px;">
+                            <strong>Scenario:</strong> Real-time feature pipeline breaks → no fresh data for scoring
+                        </div>
+                        <div style="color: var(--text);">
+                            <strong>Mitigation:</strong><br>
+                            • Multi-zone deployment with failover<br>
+                            • Dead letter queues for failed messages<br>
+                            • Automatic retry with exponential backoff<br>
+                            • Fallback to cached features
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 25px; border-radius: 12px; border: 1px solid var(--warning);">
+                        <div style="color: var(--warning); font-weight: bold; margin-bottom: 15px;">🟡 Medium Risk: Model Degradation</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 15px;">
+                            <strong>Scenario:</strong> Concept drift reduces prediction accuracy over time
+                        </div>
+                        <div style="color: var(--text);">
+                            <strong>Mitigation:</strong><br>
+                            • Weekly performance monitoring<br>
+                            • Automated retraining triggers<br>
+                            • A/B testing framework<br>
+                            • Canary deployments
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(59, 130, 246, 0.1); padding: 25px; border-radius: 12px; border: 1px solid var(--accent);">
+                        <div style="color: var(--accent); font-weight: bold; margin-bottom: 15px;">🔵 Low Risk: Infrastructure Cost Overrun</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 15px;">
+                            <strong>Scenario:</strong> Auto-scaling fails → excessive resource usage
+                        </div>
+                        <div style="color: var(--text);">
+                            <strong>Mitigation:</strong><br>
+                            • Budget alerts and limits<br>
+                            • Resource tagging for tracking<br>
+                            • Usage optimization scripts<br>
+                            • Regular cost reviews
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Incident Response Playbook</div>
+                    <div style="background: rgba(15, 23, 42, 0.7); padding: 25px; border-radius: 12px; margin-top: 20px;">
+                        <div style="color: var(--accent); font-weight: bold; margin-bottom: 15px;">🚨 Critical Incident: Model Serving Down</div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem;">⏱️</div>
+                                <div style="color: var(--text); font-weight: bold;">0-5 min</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Acknowledge incident</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem;">🔍</div>
+                                <div style="color: var(--text); font-weight: bold;">5-15 min</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Diagnose root cause</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem;">🔄</div>
+                                <div style="color: var(--text); font-weight: bold;">15-30 min</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Implement fix/rollback</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem;">✅</div>
+                                <div style="color: var(--text); font-weight: bold;">30-60 min</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Verify resolution</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem;">📝</div>
+                                <div style="color: var(--text); font-weight: bold;">Next day</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Post-mortem & fix</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Key Questions for Engineering Teams</div>
+                    <div style="background: rgba(59, 130, 246, 0.1); padding: 25px; border-radius: 12px; margin-top: 20px;">
+                        <div style="color: var(--accent); font-weight: bold; margin-bottom: 15px;">🔧 Pre-Implementation Questions</div>
+                        
+                        <div style="color: var(--text-secondary); margin-bottom: 10px;">
+                            <strong>For DevOps:</strong>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>What are the existing network security policies?</li>
+                                <li>Which monitoring tools are already in place?</li>
+                                <li>What are the change management procedures?</li>
+                                <li>How are secrets and credentials managed?</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="color: var(--text-secondary); margin: 20px 0 10px 0;">
+                            <strong>For Data Engineering:</strong>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>What are the data lineage and quality processes?</li>
+                                <li>How are schema changes communicated?</li>
+                                <li>What are the data retention policies?</li>
+                                <li>How is GDPR compliance handled?</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="color: var(--text-secondary); margin: 20px 0 10px 0;">
+                            <strong>For Product/Management:</strong>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>What are the acceptable downtime windows?</li>
+                                <li>What is the business impact of incorrect predictions?</li>
+                                <li>What are the success metrics and targets?</li>
+                                <li>Who are the key stakeholders for sign-off?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tabNumber) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`tab${tabNumber}`).classList.add('active');
+        }
+
+        // Interactive elements
+        document.querySelectorAll('.interactive-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.textContent = this.textContent.replace('▼', '▶');
+                } else {
+                    content.style.display = 'block';
+                    this.textContent = this.textContent.replace('▶', '▼');
+                }
+            });
+        });
+
+        // Cost calculator simulation
+        function calculateTotalCost() {
+            const elements = document.querySelectorAll('.cost-value');
+            let total = 0;
+            elements.forEach(el => {
+                if (el.textContent.includes('$')) {
+                    const value = parseFloat(el.textContent.replace('$', '').split('-')[0].trim());
+                    if (!isNaN(value)) total += value;
+                }
+            });
+            document.querySelector('.cost-total').textContent = `$${total.toFixed(0)} - $${(total * 1.9).toFixed(0)}`;
+        }
+
+        // Initialize calculations
+        setTimeout(calculateTotalCost, 1000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key >= '1' && e.key <= '7') {
+                const tabNumber = parseInt(e.key);
+                const tab = document.querySelectorAll('.tab')[tabNumber - 1];
+                if (tab) {
+                    tab.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

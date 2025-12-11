@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Production Demo - Lead Conversion Model</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: #475569;
+            --layer-1: #1e1b4b;
+            --layer-2: #312e81;
+            --layer-3: #4338ca;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Demo Controls */
+        .demo-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .control-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Interactive Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .sidebar {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            height: fit-content;
+            border: 1px solid var(--border);
+        }
+
+        .main-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            min-height: 800px;
+        }
+
+        /* Live Architecture Visualizer */
+        .architecture-visualizer {
+            width: 100%;
+            height: 600px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .node {
+            position: absolute;
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 180px;
+            text-align: center;
+        }
+
+        .node:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .node.active {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .node-connection {
+            position: absolute;
+            background: var(--accent);
+            height: 2px;
+            transform-origin: 0 0;
+            z-index: -1;
+        }
+
+        /* Interactive Metrics */
+        .live-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            color: var(--accent);
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+
+        /* Scenario Simulator */
+        .scenario-simulator {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Real-time Logs */
+        .live-logs {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        .log-entry {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .log-time { color: #64748b; }
+        .log-info { color: #60a5fa; }
+        .log-success { color: #10b981; }
+        .log-warning { color: #f59e0b; }
+        .log-error { color: #ef4444; }
+
+        /* Interactive Flow */
+        .interactive-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .flow-step {
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            width: 180px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .flow-step:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .flow-step.active {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .flow-arrow {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid var(--border);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--primary);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <button class="control-btn" onclick="resetDemo()">
+            🔄 Reset Demo
+        </button>
+        <button class="control-btn" onclick="runScenario('normal')">
+            🚀 Run Normal Load
+        </button>
+        <button class="control-btn" onclick="runScenario('peak')">
+            📈 Run Peak Load
+        </button>
+        <button class="control-btn" onclick="simulateFailure()">
+            🚨 Simulate Failure
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Interactive Dashboard -->
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h2 style="color: var(--accent); margin-bottom: 30px;">🎯 Demo Controls</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--text); margin-bottom: 15px;">🔧 System Settings</h3>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Traffic Load</span>
+                            <span id="trafficValue">Medium</span>
+                        </div>
+                        <input type="range" min="1" max="3" value="2" class="slider" id="trafficSlider" onchange="updateTraffic()">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Auto-scaling</span>
+                            <span id="scalingValue">Enabled</span>
+                        </div>
+                        <input type="range" min="0" max="1" value="1" class="slider" id="scalingSlider" onchange="updateScaling()">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--text); margin-bottom: 15px;">📊 Live Stats</h3>
+                    <div id="liveStats">
+                        <p style="color: var(--text-secondary);">Active Instances: <span id="instancesCount">2</span></p>
+                        <p style="color: var(--text-secondary);">Requests/sec: <span id="requestsCount">245</span></p>
+                        <p style="color: var(--text-secondary);">Error Rate: <span id="errorRate">0.2%</span></p>
+                        <p style="color: var(--text-secondary);">Cost/Hour: <span id="costHour">$0.85</span></p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--text); margin-bottom: 15px;">⚙️ Quick Actions</h3>
+                    <button class="control-btn" style="width: 100%; margin-bottom: 10px;" onclick="deployNewModel()">
+                        📦 Deploy New Model
+                    </button>
+                    <button class="control-btn" style="width: 100%; margin-bottom: 10px;" onclick="scaleInstances(1)">
+                        ⬆️ Scale Up
+                    </button>
+                    <button class="control-btn" style="width: 100%;" onclick="scaleInstances(-1)">
+                        ⬇️ Scale Down
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <h1 style="color: var(--accent); margin-bottom: 20px;">🏭 Interactive Production Deployment Demo</h1>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                    Real-time simulation of the lead conversion model deployment. Monitor, scale, and interact with the system.
+                </p>
+
+                <!-- Live Architecture Visualizer -->
+                <div class="architecture-visualizer" id="architectureViz">
+                    <!-- Nodes will be created dynamically -->
+                </div>
+
+                <!-- Live Metrics -->
+                <div class="live-metrics">
+                    <div class="metric-card" onclick="showMetricDetails('latency')">
+                        <div>⏱️ Latency (p95)</div>
+                        <div class="metric-value" id="metricLatency">187ms</div>
+                        <div class="metric-label">Target: < 200ms</div>
+                        <div class="metric-trend trend-up">
+                            <span>▲</span> 2ms
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card" onclick="showMetricDetails('accuracy')">
+                        <div>🎯 Model Accuracy</div>
+                        <div class="metric-value" id="metricAccuracy">81.5%</div>
+                        <div class="metric-label">AUC-ROC Score</div>
+                        <div class="metric-trend trend-down">
+                            <span>▼</span> 0.3%
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card" onclick="showMetricDetails('throughput')">
+                        <div>⚡ Throughput</div>
+                        <div class="metric-value" id="metricThroughput">845</div>
+                        <div class="metric-label">Requests/Second</div>
+                        <div class="metric-trend trend-up">
+                            <span>▲</span> 12%
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card" onclick="showMetricDetails('cost')">
+                        <div>💰 Cost Efficiency</div>
+                        <div class="metric-value" id="metricCost">$0.024</div>
+                        <div class="metric-label">Per 1000 Predictions</div>
+                        <div class="metric-trend trend-down">
+                            <span>▼</span> 5%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Simulator -->
+                <div class="scenario-simulator">
+                    <h3 style="color: var(--accent); margin-bottom: 20px;">🎮 Load Scenario Simulator</h3>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Simulated Users</span>
+                            <span id="usersValue">500</span>
+                        </div>
+                        <input type="range" min="100" max="5000" value="500" class="slider" id="usersSlider" oninput="updateUsers()">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Request Rate (req/sec)</span>
+                            <span id="rateValue">50</span>
+                        </div>
+                        <input type="range" min="10" max="1000" value="50" class="slider" id="rateSlider" oninput="updateRate()">
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 30px;">
+                        <button class="control-btn" onclick="startLoadTest()">
+                            ▶️ Start Load Test
+                        </button>
+                        <button class="control-btn" onclick="stopLoadTest()">
+                            ⏹️ Stop Test
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Real-time Logs -->
+                <div class="live-logs" id="liveLogs">
+                    <!-- Logs will be added dynamically -->
+                </div>
+
+                <!-- Interactive Flow -->
+                <div class="interactive-flow">
+                    <div class="flow-step" onclick="showStepDetails(1)">
+                        <div style="font-size: 2rem;">📥</div>
+                        <div>Data Ingestion</div>
+                    </div>
+                    <div class="flow-step" onclick="showStepDetails(2)">
+                        <div style="font-size: 2rem;">⚙️</div>
+                        <div>Feature Engineering</div>
+                    </div>
+                    <div class="flow-step" onclick="showStepDetails(3)">
+                        <div style="font-size: 2rem;">🤖</div>
+                        <div>Model Inference</div>
+                    </div>
+                    <div class="flow-step" onclick="showStepDetails(4)">
+                        <div style="font-size: 2rem;">📊</div>
+                        <div>Result Storage</div>
+                    </div>
+                    <div class="flow-step" onclick="showStepDetails(5)">
+                        <div style="font-size: 2rem;">📱</div>
+                        <div>Client Delivery</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Details -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 id="modalTitle" style="color: var(--accent); margin-bottom: 20px;"></h2>
+            <div id="modalContent" style="color: var(--text);">
+                <!-- Content will be filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo State
+        let demoState = {
+            activeInstances: 2,
+            requestsPerSecond: 245,
+            errorRate: 0.002,
+            latency: 187,
+            accuracy: 81.5,
+            throughput: 845,
+            costPer1000: 0.024,
+            isTesting: false,
+            testInterval: null,
+            logEntries: []
+        };
+
+        // Initialize Demo
+        function initDemo() {
+            createArchitecture();
+            addLog("🚀 Demo initialized", "success");
+            addLog("✅ All services started successfully", "success");
+            addLog("📊 Monitoring active - collecting metrics", "info");
+            updateMetrics();
+        }
+
+        // Create Interactive Architecture
+        function createArchitecture() {
+            const viz = document.getElementById('architectureViz');
+            viz.innerHTML = '';
+            
+            const nodes = [
+                { id: 'crm', x: 50, y: 50, label: '📱 CRM System', type: 'input' },
+                { id: 'api', x: 300, y: 100, label: '🚀 FastAPI', type: 'service' },
+                { id: 'features', x: 500, y: 200, label: '⚙️ Feature Store', type: 'data' },
+                { id: 'model', x: 300, y: 300, label: '🤖 ML Model', type: 'ai' },
+                { id: 'cache', x: 100, y: 400, label: '⚡ Redis Cache', type: 'cache' },
+                { id: 'db', x: 500, y: 400, label: '🗄️ PostgreSQL', type: 'database' },
+                { id: 'monitor', x: 300, y: 500, label: '📊 Monitoring', type: 'monitor' }
+            ];
+
+            nodes.forEach(node => {
+                const nodeEl = document.createElement('div');
+                nodeEl.className = 'node';
+                nodeEl.style.left = `${node.x}px`;
+                nodeEl.style.top = `${node.y}px`;
+                nodeEl.innerHTML = node.label;
+                nodeEl.onclick = () => showNodeDetails(node);
+                viz.appendChild(nodeEl);
+
+                // Add animation
+                nodeEl.style.animation = `slideIn 0.5s ease ${node.y/1000}s both`;
+            });
+        }
+
+        // Show Node Details
+        function showNodeDetails(node) {
+            const modal = document.getElementById('detailsModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = node.label;
+            
+            const details = {
+                '📱 CRM System': 'Integrates with Leadsmart app. Handles lead creation events and webhook triggers.',
+                '🚀 FastAPI': 'Primary scoring service. Handles real-time predictions with <200ms latency.',
+                '⚙️ Feature Store': 'Real-time feature calculation using Feast. Stores historical and real-time features.',
+                '🤖 ML Model': 'XGBoost classifier trained on 15+ features. Predicts conversion probability.',
+                '⚡ Redis Cache': 'Caches model weights and features. Reduces latency by 40%.',
+                '🗄️ PostgreSQL': 'Stores lead scores, campaign data, and model metadata.',
+                '📊 Monitoring': 'CloudWatch + Prometheus monitoring. Alerts on anomalies and drift.'
+            };
+            
+            content.innerHTML = `
+                <p style="margin-bottom: 20px;">${details[node.label]}</p>
+                <div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 10px;">
+                    <strong>Status:</strong> <span style="color: var(--success);">● Active</span><br>
+                    <strong>Latency:</strong> ${Math.floor(Math.random() * 50) + 20}ms<br>
+                    <strong>Connections:</strong> ${Math.floor(Math.random() * 100) + 50}<br>
+                    <strong>Last Updated:</strong> Just now
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        // Show Step Details
+        function showStepDetails(step) {
+            const steps = [
+                { title: 'Data Ingestion', desc: 'Kinesis Data Streams ingests lead events from CRM at 1000+ events/sec.' },
+                { title: 'Feature Engineering', desc: 'Real-time feature calculation using historical patterns and temporal features.' },
+                { title: 'Model Inference', desc: 'XGBoost model predicts conversion probability with 81.5% accuracy.' },
+                { title: 'Result Storage', desc: 'Scores stored in RDS and cached in Redis for fast access.' },
+                { title: 'Client Delivery', desc: 'Scores delivered to sales dashboard and AI caller via WebSocket.' }
+            ];
+            
+            const modal = document.getElementById('detailsModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            const stepData = steps[step-1];
+            title.textContent = `Step ${step}: ${stepData.title}`;
+            content.innerHTML = `
+                <p style="margin-bottom: 20px;">${stepData.desc}</p>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 10px;">
+                    <strong>Processing Time:</strong> ${step * 25}ms<br>
+                    <strong>Success Rate:</strong> 99.8%<br>
+                    <strong>Throughput:</strong> 850 req/sec<br>
+                    <strong>Next Step:</strong> ${step < 5 ? steps[step].title : 'Complete'}
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        // Show Metric Details
+        function showMetricDetails(metric) {
+            const modal = document.getElementById('detailsModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            const metrics = {
+                latency: {
+                    title: 'Latency Analysis',
+                    desc: 'P95 response time tracking. Target: <200ms for 99.5% of requests.',
+                    data: 'Current: 187ms, Best: 145ms, Worst: 320ms'
+                },
+                accuracy: {
+                    title: 'Model Performance',
+                    desc: 'AUC-ROC score monitoring. Weekly evaluation against validation set.',
+                    data: 'Current: 81.5%, Target: >80%, Drift: -0.3%'
+                },
+                throughput: {
+                    title: 'Throughput Monitoring',
+                    desc: 'Requests per second capacity. Auto-scales at 70% utilization.',
+                    data: 'Current: 845/sec, Capacity: 1000/sec, Scale threshold: 700/sec'
+                },
+                cost: {
+                    title: 'Cost Analysis',
+                    desc: 'Cost per 1000 predictions. Monthly target: <$0.03 per 1000.',
+                    data: 'Current: $0.024, Monthly: $680, ROI: 18x'
+                }
+            };
+            
+            title.textContent = metrics[metric].title;
+            content.innerHTML = `
+                <p style="margin-bottom: 20px;">${metrics[metric].desc}</p>
+                <div style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <strong>📈 Performance Data:</strong><br>
+                    ${metrics[metric].data}
+                </div>
+                <button class="control-btn" onclick="adjustMetric('${metric}')" style="width: 100%;">
+                    ⚙️ Adjust Settings
+                </button>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        // Update Metrics
+        function updateMetrics() {
+            // Simulate realistic metric fluctuations
+            demoState.latency += (Math.random() - 0.5) * 10;
+            demoState.latency = Math.max(150, Math.min(250, demoState.latency));
+            
+            demoState.accuracy += (Math.random() - 0.5) * 0.5;
+            demoState.accuracy = Math.max(78, Math.min(84, demoState.accuracy));
+            
+            demoState.throughput += (Math.random() - 0.5) * 50;
+            demoState.throughput = Math.max(700, Math.min(950, demoState.throughput));
+            
+            demoState.costPer1000 += (Math.random() - 0.5) * 0.002;
+            demoState.costPer1000 = Math.max(0.02, Math.min(0.03, demoState.costPer1000));
+            
+            // Update UI
+            document.getElementById('metricLatency').textContent = Math.round(demoState.latency) + 'ms';
+            document.getElementById('metricAccuracy').textContent = demoState.accuracy.toFixed(1) + '%';
+            document.getElementById('metricThroughput').textContent = Math.round(demoState.throughput);
+            document.getElementById('metricCost').textContent = '$' + demoState.costPer1000.toFixed(3);
+            
+            // Update stats
+            document.getElementById('instancesCount').textContent = demoState.activeInstances;
+            document.getElementById('requestsCount').textContent = demoState.requestsPerSecond;
+            document.getElementById('errorRate').textContent = (demoState.errorRate * 100).toFixed(1) + '%';
+            document.getElementById('costHour').textContent = '$' + (demoState.activeInstances * 0.35).toFixed(2);
+        }
+
+        // Add Log Entry
+        function addLog(message, type = 'info') {
+            const logs = document.getElementById('liveLogs');
+            const time = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `
+                <span class="log-time">${time}</span>
+                <span class="log-${type}"> ${message}</span>
+            `;
+            
+            logs.appendChild(logEntry);
+            logs.scrollTop = logs.scrollHeight;
+            
+            // Keep only last 20 logs
+            if (logs.children.length > 20) {
+                logs.removeChild(logs.firstChild);
+            }
+            
+            demoState.logEntries.push({ time, message, type });
+        }
+
+        // Run Scenario
+        function runScenario(scenario) {
+            stopLoadTest();
+            
+            if (scenario === 'normal') {
+                addLog("🔧 Switching to normal load scenario", "info");
+                demoState.requestsPerSecond = 245;
+                demoState.activeInstances = 2;
+            } else if (scenario === 'peak') {
+                addLog("📈 Starting peak load scenario (1000+ req/sec)", "warning");
+                demoState.requestsPerSecond = 850;
+                demoState.activeInstances = 8;
+                addLog("⚡ Auto-scaling triggered: 2 → 8 instances", "success");
+            }
+            
+            updateMetrics();
+        }
+
+        // Simulate Failure
+        function simulateFailure() {
+            addLog("🚨 SIMULATING SYSTEM FAILURE", "error");
+            addLog("⚠️ High latency detected: 520ms (threshold: 500ms)", "error");
+            addLog("🔧 Auto-recovery initiated...", "warning");
+            
+            setTimeout(() => {
+                addLog("🔄 Rolling back to previous model version", "info");
+                setTimeout(() => {
+                    addLog("✅ System recovered. Latency: 210ms", "success");
+                    addLog("📊 Incident logged for post-mortem", "info");
+                }, 1000);
+            }, 2000);
+        }
+
+        // Deploy New Model
+        function deployNewModel() {
+            addLog("📦 Starting model deployment...", "info");
+            addLog("🧪 Running integration tests...", "info");
+            
+            setTimeout(() => {
+                addLog("✅ Tests passed. Deploying to staging...", "success");
+                setTimeout(() => {
+                    addLog("🎯 Deploying to production (canary 5%)...", "warning");
+                    setTimeout(() => {
+                        addLog("🚀 Full deployment complete. Model v3.2 active", "success");
+                        demoState.accuracy = 82.3;
+                        updateMetrics();
+                    }, 1500);
+                }, 1000);
+            }, 1000);
+        }
+
+        // Scale Instances
+        function scaleInstances(delta) {
+            const newCount = demoState.activeInstances + delta;
+            if (newCount >= 1 && newCount <= 10) {
+                demoState.activeInstances = newCount;
+                addLog(`⚡ Scaled instances: ${demoState.activeInstances - delta} → ${newCount}`, "info");
+                updateMetrics();
+            }
+        }
+
+        // Update Traffic Slider
+        function updateTraffic() {
+            const slider = document.getElementById('trafficSlider');
+            const value = parseInt(slider.value);
+            const labels = ['Low', 'Medium', 'High'];
+            document.getElementById('trafficValue').textContent = labels[value-1];
+            demoState.requestsPerSecond = [150, 245, 850][value-1];
+            updateMetrics();
+        }
+
+        // Update Scaling Slider
+        function updateScaling() {
+            const slider = document.getElementById('scalingSlider');
+            const value = parseInt(slider.value);
+            document.getElementById('scalingValue').textContent = value === 1 ? 'Enabled' : 'Disabled';
+            addLog(`⚙️ Auto-scaling ${value === 1 ? 'enabled' : 'disabled'}`, "info");
+        }
+
+        // Update Users
+        function updateUsers() {
+            const slider = document.getElementById('usersSlider');
+            document.getElementById('usersValue').textContent = slider.value;
+        }
+
+        // Update Rate
+        function updateRate() {
+            const slider = document.getElementById('rateSlider');
+            document.getElementById('rateValue').textContent = slider.value;
+        }
+
+        // Start Load Test
+        function startLoadTest() {
+            if (demoState.isTesting) return;
+            
+            demoState.isTesting = true;
+            const users = parseInt(document.getElementById('usersSlider').value);
+            const rate = parseInt(document.getElementById('rateSlider').value);
+            
+            addLog(`🧪 Starting load test: ${users} users, ${rate} req/sec`, "info");
+            
+            demoState.testInterval = setInterval(() => {
+                demoState.requestsPerSecond = rate;
+                demoState.latency = Math.min(500, demoState.latency + Math.random() * 20);
+                updateMetrics();
+                
+                if (demoState.latency > 400) {
+                    addLog(`⚠️ High latency warning: ${Math.round(demoState.latency)}ms`, "warning");
+                }
+            }, 2000);
+        }
+
+        // Stop Load Test
+        function stopLoadTest() {
+            if (demoState.testInterval) {
+                clearInterval(demoState.testInterval);
+                demoState.testInterval = null;
+            }
+            demoState.isTesting = false;
+            demoState.requestsPerSecond = 245;
+            demoState.latency = 187;
+            addLog("⏹️ Load test stopped", "info");
+            updateMetrics();
+        }
+
+        // Reset Demo
+        function resetDemo() {
+            stopLoadTest();
+            demoState = {
+                activeInstances: 2,
+                requestsPerSecond: 245,
+                errorRate: 0.002,
+                latency: 187,
+                accuracy: 81.5,
+                throughput: 845,
+                costPer1000: 0.024,
+                isTesting: false,
+                testInterval: null,
+                logEntries: []
+            };
+            
+            document.getElementById('liveLogs').innerHTML = '';
+            addLog("🔄 Demo reset to initial state", "success");
+            updateMetrics();
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
+        // Adjust Metric
+        function adjustMetric(metric) {
+            addLog(`⚙️ Adjusting ${metric} settings...`, "info");
+            closeModal();
+        }
+
+        // Initialize on load
+        window.onload = initDemo;
+
+        // Auto-update metrics every 3 seconds
+        setInterval(updateMetrics, 3000);
+
+        // Simulate occasional system events
+        setInterval(() => {
+            if (Math.random() > 0.7 && !demoState.isTesting) {
+                const events = [
+                    "📈 New lead batch processed: 1,234 leads",
+                    "🧹 Cache cleared: 2.3GB recovered",
+                    "📊 Daily performance report generated",
+                    "🔄 Feature store updated with new data"
+                ];
+                addLog(events[Math.floor(Math.random() * events.length)], "info");
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
