@@ -5,6 +5,9 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
+import os
+BASE_DIR = os.path.dirname(__file__)
+
 
 # =========================
 # 1) ENHANCED Page Config + CSS
@@ -376,9 +379,10 @@ def load_and_prepare():
     """Load CSVs and build campaign-level performance table."""
     
     # Load data
-    campaign_leads = pd.read_csv("campaign_leads.csv")
-    campaigns = pd.read_csv("campaigns.csv")
-    insights = pd.read_csv("insights.csv")
+   campaign_leads = pd.read_csv(os.path.join(BASE_DIR, "campaign_leads.csv"))
+   campaigns = pd.read_csv(os.path.join(BASE_DIR, "campaigns.csv"))
+   insights = pd.read_csv(os.path.join(BASE_DIR, "insights.csv"))
+
 
     # Rename IDs
     campaign_leads = campaign_leads.rename(columns={"id": "lead_id"})
