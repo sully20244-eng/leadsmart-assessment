@@ -4,6 +4,11 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
+import os
+
+# Get absolute directory of this script (so Streamlit can find CSVs)
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 # =========================
 # 1) ENHANCED Page config + CSS
@@ -281,10 +286,10 @@ def create_gradient_color_scale(color_scheme="viridis"):
 def load_data():
     """Load and prepare all data files"""
     try:
-        campaign_leads = pd.read_csv("campaign_leads.csv")
-        campaigns = pd.read_csv("campaigns.csv")
-        insights = pd.read_csv("insights.csv")
-        lead_status_changes = pd.read_csv("lead_status_changes.csv")
+        campaign_leads = pd.read_csv(os.path.join(FILE_DIR, "campaign_leads.csv"))
+        campaigns = pd.read_csv(os.path.join(FILE_DIR, "campaigns.csv"))
+        insights = pd.read_csv(os.path.join(FILE_DIR, "insights.csv"))
+        lead_status_changes = pd.read_csv(os.path.join(FILE_DIR, "lead_status_changes.csv"))
     except FileNotFoundError as e:
         st.error(f"Data file not found: {e}")
         # Create dummy data for demonstration
